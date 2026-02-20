@@ -1,218 +1,905 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klara — Graphic Designer</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Karla:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klara Ingersoll — Planning + Design Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #EDE8DF;
+      --black: #2A2A28;
+      --concrete: #B8B0A4;
+      --concrete-dark: #6B6560;
+      --rust: #2A2A28;
+      --steel: #2A2A28;
+      --gallery: #E4DED4;
+      --brick: #2A2A28;
+      --river: #A8C8D8;
+      --display: 'Barlow Condensed', sans-serif;
+      --body: 'IBM Plex Mono', monospace;
+      --mono: 'IBM Plex Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--body);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3rem;
+      height: 52px;
+      background: var(--white);
+      border-bottom: 1px solid var(--black);
+    }
+
+    .nav-name {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--concrete-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--rust); }
+
+    .nav-tag {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--steel);
+      border: 1px solid var(--steel);
+      padding: 0.3rem 0.6rem;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      padding-top: 52px;
+      background: var(--white);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Black outlined grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(42,42,40,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(42,42,40,0.08) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4rem;
+      align-items: end;
+    }
+
+    .hero-left {}
+
+    .hero-floor-number {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--concrete-dark);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .hero-floor-number::before {
+      content: '';
+      width: 40px;
+      height: 1px;
+      background: var(--black);
+    }
+
+    .hero-name {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(2.8rem, 7vw, 6.5rem);
+      line-height: 0.88;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 3rem;
+    }
+
+    .hero-name .name-line2 {
+      display: block;
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .hero-bottom {
+      display: flex;
+      align-items: flex-end;
+      gap: 4rem;
+    }
+
+    .hero-tagline {
+      font-family: var(--mono);
+      font-weight: 300;
+      font-style: normal;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      line-height: 1.9;
+      color: var(--concrete-dark);
+      max-width: 460px;
+      border-left: 2px solid var(--black);
+      padding-left: 1.5rem;
+    }
+
+    .hero-meta {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      color: var(--concrete-dark);
+      line-height: 2;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .hero-meta a {
+      color: var(--black);
+      text-decoration: none;
+      display: block;
+      margin-top: 0.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .hero-meta a:hover { opacity: 0.5; }
+
+    /* RIVER — industrial overhead map style */
+    .river-scene {
+      height: 200px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      border-top: 1px solid var(--steel);
+    }
+
+    /* BANNER STRIPE */
+    .banner {
+      background: var(--gallery);
+      padding: 0.8rem 4rem;
+      display: flex;
+      gap: 4rem;
+      border-bottom: 1px solid var(--black);
+      border-top: 1px solid var(--black);
+      overflow: hidden;
+    }
+
+    .banner-text {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--concrete-dark);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--gallery);
+      padding: 7rem 4rem;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 6rem;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .about-sidebar {
+      position: sticky;
+      top: 70px;
+    }
+
+    .section-number {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--concrete-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-heading {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      color: var(--black);
+    }
+
+    .section-heading em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rust);
+      display: block;
+    }
+
+    .about-divider {
+      width: 40px;
+      height: 3px;
+      background: var(--rust);
+      margin: 1.5rem 0;
+    }
+
+    .about-location {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--concrete-dark);
+      line-height: 1.8;
+    }
+
+    .about-content p {
+      font-family: var(--body);
+      font-weight: 300;
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      line-height: 1.9;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-content p:last-child { margin-bottom: 0; }
+
+    .about-content strong {
+      font-weight: 600;
+      color: var(--rust);
+    }
+
+    /* SERVICES */
+    .services {
+      background: var(--white);
+      border-bottom: 1px solid var(--black);
+      border-top: 1px solid var(--black);
+    }
+
+    .services-header {
+      padding: 5rem 4rem 3rem;
+      border-bottom: 1px solid var(--black);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .services-header-sub {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--concrete-dark);
+      max-width: 300px;
+      line-height: 1.8;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .service-block {
+      padding: 3.5rem;
+      border-right: 1px solid var(--black);
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .service-block:last-child { border-right: none; }
+    .service-block:hover { background: var(--gallery); }
+
+    .service-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: transparent;
+      transition: background 0.3s;
+    }
+
+    .service-block:hover::before { background: var(--black); }
+
+    .service-num {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      color: var(--concrete-dark);
+      margin-bottom: 2rem;
+    }
+
+    .service-title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 1.2rem;
+    }
+
+    .service-desc {
+      font-family: var(--body);
+      font-weight: 300;
+      font-size: 0.88rem;
+      line-height: 1.85;
+      color: var(--concrete-dark);
+    }
+
+    .selected-work {
+      background: var(--gallery);
+      padding: 6rem 4rem;
+      border-bottom: 1px solid var(--black);
+      border-top: 1px solid var(--black);
+    }
+
+    .work-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 4rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .work-header .section-heading { color: var(--black); }
+    .work-header .section-heading em { color: var(--concrete-dark); }
+    .work-header .section-number { color: var(--concrete-dark); }
+
+    .work-count {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--concrete-dark);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid var(--black);
+    }
+
+    .work-item {
+      background: var(--gallery);
+      padding: 3rem;
+      border-right: 1px solid var(--black);
+      border-bottom: 1px solid var(--black);
+      transition: background 0.3s;
+    }
+
+    .work-item:nth-child(even) { border-right: none; }
+    .work-item:nth-last-child(-n+2) { border-bottom: none; }
+    .work-item:hover { background: var(--white); }
+
+    .work-tag {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--concrete-dark);
+      margin-bottom: 1rem;
+    }
+
+    .work-title {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--black);
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .work-location {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--concrete-dark);
+      margin-bottom: 1.2rem;
+    }
+
+    .work-desc {
+      font-family: var(--body);
+      font-weight: 300;
+      font-size: 0.85rem;
+      line-height: 1.85;
+      color: var(--concrete-dark);
+    }
+
+    /* CREDENTIALS */
+    .credentials {
+      background: var(--gallery);
+      padding: 6rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .cred-block {
+      padding-right: 5rem;
+      border-right: 1px solid var(--black);
+    }
+
+    .cred-block:last-child {
+      padding-right: 0;
+      padding-left: 5rem;
+      border-right: none;
+    }
+
+    .cred-heading {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--black);
+      margin-bottom: 2.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--black);
+      display: inline-block;
+    }
+
+    .cred-item {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(42,42,40,0.15);
+      align-items: flex-start;
+    }
+
+    .cred-item:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .cred-index {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--concrete-dark);
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .cred-text strong {
+      font-family: var(--display);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.2rem;
+      color: var(--black);
+    }
+
+    .cred-text span {
+      font-family: var(--body);
+      font-weight: 300;
+      font-size: 0.82rem;
+      color: var(--concrete-dark);
+    }
+
+    /* CONTACT */
+    .contact {
+      background: var(--white);
+      padding: 7rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .contact-heading {
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      line-height: 0.9;
+      color: var(--black);
+    }
+
+    .contact-heading em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--rust);
+      display: block;
+    }
+
+    .contact-sub {
+      font-family: var(--body);
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--concrete-dark);
+      border-top: 1px solid var(--black);
+      padding-top: 2rem;
+      border-top: 1px solid var(--black);
+    }
+
+    .contact-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--black);
+      text-decoration: none;
+      transition: padding-left 0.3s;
+    }
+
+    .contact-link:first-child { border-top: 1px solid var(--black); }
+
+    .contact-link:hover { padding-left: 1rem; }
+
+    .contact-link-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--concrete-dark);
+    }
+
+    .contact-link-value {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      transition: color 0.3s;
+    }
+
+    .contact-link:hover .contact-link-value { color: var(--concrete-dark); }
+
+    .contact-link-arrow {
+      font-size: 0.8rem;
+      color: var(--concrete-dark);
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .contact-link:hover .contact-link-arrow {
+      color: var(--black);
+      transform: translateX(4px);
+    }
+
+    footer {
+      background: var(--gallery);
+      padding: 1.2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--black);
+    }
+
+    footer span {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--concrete-dark);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-name { animation: fadeIn 0.9s ease forwards; }
+    .hero-tagline { animation: fadeIn 0.9s 0.2s ease forwards; opacity: 0; }
+    .hero-meta { animation: fadeIn 0.9s 0.35s ease forwards; opacity: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-content { grid-template-columns: 1fr; padding: 3rem 2rem; }
+      .hero-bottom { flex-direction: column; gap: 2rem; }
+      .hero-meta { text-align: left; }
+      .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      .about-sidebar { position: static; }
+      .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 3rem 2rem 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-block { border-right: none; border-bottom: 1px solid var(--concrete); }
+      .selected-work { padding: 5rem 2rem; }
+      .work-grid { grid-template-columns: 1fr; }
+      .credentials { grid-template-columns: 1fr; gap: 4rem; padding: 4rem 2rem; }
+      .cred-block { padding-right: 0; border-right: none; border-bottom: 1px solid var(--concrete); padding-bottom: 4rem; }
+      .cred-block:last-child { padding-left: 0; padding-bottom: 0; border-bottom: none; }
+      .contact { grid-template-columns: 1fr; gap: 4rem; padding: 5rem 2rem; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .banner { padding: 0.8rem 2rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hand-drawn navigation -->
-    <nav class="nav">
-        <div class="nav-container">
-            <a href="#home" class="logo">klara</a>
-            <div class="nav-links">
-                <a href="#work">work</a>
-                <a href="#about">about</a>
-                <a href="#contact">contact</a>
-            </div>
+
+  <nav>
+    <div class="nav-name">Klara Ingersoll</div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-tag">Western Massachusetts</div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-floor-number">Planning + Design Studio</div>
+        <h1 class="hero-name">Klara<span class="name-line2">Ingersoll</span></h1>
+        <div class="hero-bottom">
+          <p class="hero-tagline">Planning, design, and visual storytelling rooted in local history and material culture.</p>
+          <div class="hero-meta">
+            Connecticut River Valley<br>
+            Western Massachusetts<br>
+            <br>
+            Available for consulting<br>
+            + studio work<br>
+            <a href="mailto:klara.ingersoll@gmail.com">Get in touch →</a>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="invitation">
-                <p class="look-up">look up</p>
-                <div class="arrow-up">↑</div>
-            </div>
-            
-            <div class="question-container">
-                <p class="question">what do you see?</p>
-            </div>
-            
-            <div class="clouds-container">
-                <svg class="cloud cloud-1" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="35" cy="35" rx="35" ry="25" fill="currentColor"/>
-                    <ellipse cx="80" cy="30" rx="45" ry="30" fill="currentColor"/>
-                    <ellipse cx="130" cy="35" rx="35" ry="25" fill="currentColor"/>
-                </svg>
-                
-                <svg class="cloud cloud-2" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="30" cy="30" rx="30" ry="20" fill="currentColor"/>
-                    <ellipse cx="70" cy="25" rx="40" ry="25" fill="currentColor"/>
-                    <ellipse cx="120" cy="30" rx="30" ry="20" fill="currentColor"/>
-                </svg>
-                
-                <svg class="cloud cloud-3" viewBox="0 0 160 50" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="35" cy="30" rx="35" ry="20" fill="currentColor"/>
-                    <ellipse cx="75" cy="25" rx="35" ry="25" fill="currentColor"/>
-                    <ellipse cx="110" cy="30" rx="30" ry="20" fill="currentColor"/>
-                </svg>
-            </div>
-            
-            <div class="dream-reveal">
-                <p class="dream-text">this is probably what you're dreaming of</p>
-                <p class="cta-text">let's make it into a design together</p>
-            </div>
-            
-            <div class="hero-footer">
-                <p class="designer-name">klara — graphic designer</p>
-            </div>
+    <!-- RIVER — overhead industrial map -->
+    <div class="river-scene">
+      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+
+        <!-- Sky / background -->
+        <rect width="1440" height="200" fill="#EDE8DF"/>
+
+        <!-- Far hill -->
+        <path d="M0,95 C180,72 380,62 580,74 C780,86 980,65 1180,74 C1320,80 1400,70 1440,72 L1440,200 L0,200 Z" fill="#D4CFC6"/>
+
+        <!-- Mid hill -->
+        <path d="M0,118 C160,100 360,92 560,104 C760,116 940,98 1120,106 C1280,113 1380,103 1440,106 L1440,200 L0,200 Z" fill="#C4BDB4"/>
+
+        <!-- River — solid papercut blue -->
+        <path d="M0,135 C200,124 420,118 640,128 C860,138 1060,120 1260,128 C1360,133 1410,127 1440,128 L1440,170 C1420,172 1360,176 1260,172 C1060,165 860,180 640,172 C420,164 200,168 0,160 Z" fill="#A8C8D8"/>
+
+      </svg>
+    </div>
+  </section>
+
+  <!-- RUST BANNER -->
+  <div class="banner">
+      <span class="banner-text">Planning · Design · Wayfinding · Grant Consulting · Place Branding · Storefront Design · Community Engagement · Visual Communication · Western Massachusetts</span>
+    <span class="banner-text">Planning · Design · Wayfinding · Grant Consulting · Place Branding · Storefront Design · Community Engagement · Visual Communication · Western Massachusetts</span>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-sidebar">
+      <div class="section-number">// 01</div>
+      <h2 class="section-heading">People<br>Place<br><em>Policy</em></h2>
+      <div class="about-divider"></div>
+      <div class="about-location">
+        Connecticut River Valley<br>
+        Western Massachusetts<br>
+        <br>
+        M.R.P. · UMass Amherst<br>
+        B.A. · Critical Media Studies
+      </div>
+    </div>
+    <div class="about-content">
+      <p>With a <strong>Master's in Regional Planning from UMass Amherst</strong> and experience at VHB — conducting environmental review, agency coordination, spatial analysis, and community engagement on projects ranging from New York City's housing policy to small-town downtown revitalization — Klara connects people, place, and policy.</p>
+      <p>She believes every place has a visual language waiting to be defined, one rooted in its <strong>material culture, local history, and the everyday experience</strong> of the people who live there. Through graphic design, storefront and façade concepts, and wayfinding systems, she translates that language into the built environment.</p>
+      <p>Her background in <strong>graphic design and journalism</strong> adds a strong visual and storytelling sensibility to work that spans transit equity research, municipal cultural planning, stakeholder engagement, and downtown revitalization. She works with municipalities, nonprofits, and small businesses across Western Massachusetts and beyond.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-header">
+      <div>
+        <div class="section-number">// 02</div>
+        <h2 class="section-heading">Services<br><em>+ Offerings</em></h2>
+      </div>
+      <div class="services-header-sub">
+        Planning, design, and visual communication
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-block">
+        <p class="service-num">// 02.01</p>
+        <h3 class="service-title">Grant Consulting + Community Development</h3>
+        <p class="service-desc">Helping municipalities, nonprofits, and small businesses navigate funding programs, from CDBG Storefront Improvement to state and federal community development grants. Services include eligibility review, application writing, stakeholder engagement strategy, participatory planning, and community outreach design — from first contact to final submission.</p>
+      </div>
+      <div class="service-block">
+        <p class="service-num">// 02.02</p>
+        <h3 class="service-title">Storefront, Wayfinding + Place Branding</h3>
+        <p class="service-desc">Signage, awnings, façade concepts, wayfinding systems, and place-based visual identity rooted in local material culture. From a single storefront to a whole downtown district — design that helps communities tell their story through the built environment and makes places more legible, vibrant, and locally rooted.</p>
+      </div>
+      <div class="service-block">
+        <p class="service-num">// 02.03</p>
+        <h3 class="service-title">Graphic Design + Visual Communication</h3>
+        <p class="service-desc">Brand identity, print collateral, posters, editorial design, and marketing materials for organizations, small businesses, and cultural institutions. Visual language development that connects a project or organization to its audience — from logo and brand systems to campaign design, publication layout, and digital assets.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="selected-work" id="work">
+    <div class="work-header">
+      <div>
+        <div class="section-number" style="color: var(--steel)">// 03</div>
+        <h2 class="section-heading">Selected<br><em>Work</em></h2>
+      </div>
+      <div class="work-count">06 Projects</div>
+    </div>
+    <div class="work-grid">
+      <div class="work-item">
+        <p class="work-tag">// Wayfinding · Orange, MA</p>
+        <h3 class="work-title">Flying Towards Revitalization</h3>
+        <p class="work-location">Orange, MA</p>
+        <p class="work-desc">A wayfinding and cultural plan for a post-industrial New England town. Through participatory planning, discovered pollinators as a unifying conservation symbol across political divides — developing a visual identity centered on monarch butterflies integrating ecological restoration, historic preservation, and community placemaking.</p>
+      </div>
+      <div class="work-item">
+        <p class="work-tag">// Transit Equity · FTA-Funded Research</p>
+        <h3 class="work-title">Valley on Board Long-Range Planning Study</h3>
+        <p class="work-location">Pioneer Valley Transit Authority, Western MA</p>
+        <p class="work-desc">Research Fellow applying inclusive engagement methods under a Federal Transit Administration HOPE Grant, prioritizing Environmental Justice communities. Developed participatory mapping tools and authored the final grant report with actionable recommendations for equitable route redesign.</p>
+      </div>
+      <div class="work-item">
+        <p class="work-tag">// Housing Policy · Environmental Review</p>
+        <h3 class="work-title">City of Yes for Housing Opportunity EIS</h3>
+        <p class="work-location">New York City, NY</p>
+        <p class="work-desc">Contributed to the Environmental Impact Statement for New York City's landmark housing opportunity initiative. Conducted GIS-based spatial analysis and land use assessment through CEQR processes, coordinating with NYC agencies including DEP and SHPO.</p>
+      </div>
+      <div class="work-item">
+        <p class="work-tag">// Historic Preservation · Archival Research</p>
+        <h3 class="work-title">Neighborhood Heritage Documentation</h3>
+        <p class="work-location">Cobble Hill Association, Brooklyn, NY</p>
+        <p class="work-desc">Developed systematic archival research protocols for neighborhood preservation documentation in partnership with the Center for Brooklyn History. Applied qualitative research methods to community identity and cultural heritage conservation.</p>
+      </div>
+      <div class="work-item">
+        <p class="work-tag">// Public Scholarship · Editorial Design</p>
+        <h3 class="work-title">Housemates Magazine</h3>
+        <p class="work-location">Western Massachusetts + Harvard Graduate School of Design</p>
+        <p class="work-desc">Co-founded an interdisciplinary publication translating planning and design concepts for public audiences. Led a workshop at the Harvard Graduate School of Design on accessible communication of urbanist research.</p>
+      </div>
+      <div class="work-item">
+        <p class="work-tag">// Downtown Revitalization · Strategic Planning</p>
+        <h3 class="work-title">New York Forward — Highland Falls</h3>
+        <p class="work-location">Highland Falls, NY · VHB</p>
+        <p class="work-desc">Developed downtown profiles and strategic recommendations for the Village of Highland Falls under the New York Forward revitalization initiative, focusing on community development opportunities and place-based planning strategies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="credentials" id="credentials">
+    <div class="cred-block">
+      <h3 class="cred-heading">Education</h3>
+      <div class="cred-item">
+        <div class="cred-index">01</div>
+        <div class="cred-text">
+          <strong>Master's in Regional Planning</strong>
+          <span>UMass Amherst · Cultural Preservation · Sustainable Community Development · Transportation Equity</span>
         </div>
-    </section>
-
-    <!-- Work Section -->
-    <section id="work" class="work">
-        <div class="container">
-            <h2 class="section-title">
-                selected work
-                <span class="underline-sketch"></span>
-            </h2>
-            
-            <div class="work-grid">
-                <!-- Project Card -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="placeholder-img">
-                            <svg viewBox="0 0 200 200" class="hand-drawn-frame">
-                                <rect x="10" y="10" width="180" height="180" fill="none" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                            <span class="img-placeholder-text">your work here</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Craft Knot Art</h3>
-                        <p class="project-tags">Logo Design • Brand Identity</p>
-                        <p class="project-desc">Yarn ball icon and full branding system for artisan fiber business</p>
-                    </div>
-                </div>
-
-                <!-- Add more projects here -->
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="placeholder-img">
-                            <svg viewBox="0 0 200 200" class="hand-drawn-frame">
-                                <rect x="10" y="10" width="180" height="180" fill="none" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                            <span class="img-placeholder-text">project two</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Project Name</h3>
-                        <p class="project-tags">Your Service • Type</p>
-                        <p class="project-desc">Brief description of the project and what you created</p>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="placeholder-img">
-                            <svg viewBox="0 0 200 200" class="hand-drawn-frame">
-                                <rect x="10" y="10" width="180" height="180" fill="none" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                            <span class="img-placeholder-text">project three</span>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Project Name</h3>
-                        <p class="project-tags">Your Service • Type</p>
-                        <p class="project-desc">Brief description of the project and what you created</p>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-index">02</div>
+        <div class="cred-text">
+          <strong>BA Critical Media Studies</strong>
+          <span>UMass Amherst · Journalism, Public Policy, Media</span>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <h2 class="section-title">
-                        hi, I'm klara
-                        <span class="underline-sketch"></span>
-                    </h2>
-                    <div class="about-body">
-                        <p>I'm a graphic designer who believes that good design should feel warm, intentional, and unmistakably human.</p>
-                        
-                        <p>Every brand has a story, and I love helping businesses tell theirs through thoughtful visual identity work—logos, branding systems, and design that connects.</p>
-                        
-                        <p>When I'm not designing, you'll find me at meditation retreats, reading Byron Katie, or moving into new creative spaces (literally and figuratively).</p>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="doodle-portrait">
-                        <!-- Hand-drawn decorative elements -->
-                        <div class="portrait-frame">
-                            <svg viewBox="0 0 300 300" class="frame-svg">
-                                <circle cx="150" cy="150" r="140" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5,5"/>
-                            </svg>
-                            <div class="portrait-placeholder">
-                                <span>your photo here</span>
-                            </div>
-                        </div>
-                        <div class="floating-doodles">
-                            <span class="star">✦</span>
-                            <span class="heart">♡</span>
-                            <span class="sparkle">✧</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-index">03</div>
+        <div class="cred-text">
+          <strong>Foundation Year Programme</strong>
+          <span>University of King's College, Halifax, Canada · Philosophy · History of Science · Literature</span>
         </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="testimonial-card">
-                <div class="quote-mark">"</div>
-                <p class="testimonial-text">Working with Klara was a pleasure! She understood exactly what I needed for Craft Knot Art and delivered beautiful, thoughtful work.</p>
-                <p class="testimonial-author">— Jenny, Craft Knot Art</p>
-            </div>
+      </div>
+    </div>
+    <div class="cred-block">
+      <h3 class="cred-heading">Experience</h3>
+      <div class="cred-item">
+        <div class="cred-index">01</div>
+        <div class="cred-text">
+          <strong>VHB, New York</strong>
+          <span>Environmental review · Housing policy · Historic landmarks research</span>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title">
-                    let's work together
-                    <span class="underline-sketch"></span>
-                </h2>
-                <p class="contact-intro">Have a project in mind? I'd love to hear about it.</p>
-                
-                <div class="contact-methods">
-                    <a href="mailto:your.email@example.com" class="contact-btn">
-                        <span>email me</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M5 10h10M10 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="social-links">
-                    <a href="#" class="social-link">instagram</a>
-                    <a href="#" class="social-link">linkedin</a>
-                    <a href="#" class="social-link">behance</a>
-                </div>
-            </div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-index">02</div>
+        <div class="cred-text">
+          <strong>Pioneer Valley Transit Authority</strong>
+          <span>FTA-funded transit equity research, participatory mapping</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 Klara Design • Made with care</p>
-            <div class="footer-doodle">~</div>
+      </div>
+      <div class="cred-item">
+        <div class="cred-index">03</div>
+        <div class="cred-text">
+          <strong>Town of Orange, MA</strong>
+          <span>Wayfinding plan · Cultural landscapes research · Downtown revitalization strategy</span>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-left">
+      <p class="contact-sub">Open to consulting, collaboration, and studio projects across Western Massachusetts and beyond.</p>
+    </div>
+    <div class="contact-right">
+      <a href="mailto:klara.ingersoll@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">Send a message</span>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="https://www.linkedin.com/in/klaraingersoll" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">Connect online</span>
+        <span class="contact-link-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Klara Ingersoll</span>
+    <span>Planning + Design Studio · Western Massachusetts</span>
+  </footer>
+
 </body>
 </html>
