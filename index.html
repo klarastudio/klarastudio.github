@@ -374,6 +374,39 @@
       color: var(--concrete-dark);
     }
 
+    /* IMAGE GRID */
+    .image-grid-section {
+      border-top: 1px solid var(--black);
+      border-bottom: 1px solid var(--black);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    }
+
+    .image-cell {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-right: 1px solid var(--black);
+      border-bottom: 1px solid var(--black);
+      background: var(--gallery);
+    }
+
+    .image-cell:nth-child(2n) { border-right: none; }
+    .image-cell:nth-last-child(-n+2) { border-bottom: none; }
+
+    .image-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .image-cell:hover img { transform: scale(1.03); }
+
     .selected-work {
       background: var(--gallery);
       padding: 6rem 4rem;
@@ -571,7 +604,24 @@
       gap: 0;
     }
 
-    .contact-link {
+    .contact-btn {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      border: 1px solid var(--black);
+      padding: 1.2rem 2.5rem;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .contact-btn:hover {
+      background: transparent;
+      color: var(--black);
+    }
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -693,7 +743,7 @@
             <br>
             Available for consulting<br>
             + studio work<br>
-            <a href="mailto:klara.ingersoll@gmail.com">Get in touch →</a>
+            <a href="/cdn-cgi/l/email-protection#b7dcdbd6c5d699ded9d0d2c5c4d8dbdbf7d0dad6dedb99d4d8da">Get in touch →</a>
           </div>
         </div>
       </div>
@@ -773,6 +823,16 @@
         <h3 class="service-title">Graphic Design + Visual Communication</h3>
         <p class="service-desc">Brand identity, print collateral, posters, editorial design, and marketing materials for organizations, small businesses, and cultural institutions. Visual language development that connects a project or organization to its audience — from logo and brand systems to campaign design, publication layout, and digital assets.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- IMAGE GRID -->
+  <section class="image-grid-section" id="gallery">
+    <div class="image-grid">
+      <div class="image-cell"><img src="image-1.png" alt="Project image 1"></div>
+      <div class="image-cell"><img src="image-3.png" alt="Project image 2"></div>
+      <div class="image-cell"><img src="image-4.png" alt="Project image 3"></div>
+      <div class="image-cell"><img src="image-6.PNG" alt="Project image 4"></div>
     </div>
   </section>
 
@@ -883,23 +943,8 @@
       <p class="contact-sub">Open to consulting, collaboration, and studio projects across Western Massachusetts and beyond.</p>
     </div>
     <div class="contact-right">
-      <a href="mailto:klara.ingersoll@gmail.com" class="contact-link">
-        <span class="contact-link-label">Email</span>
-        <span class="contact-link-value">Send a message</span>
-        <span class="contact-link-arrow">→</span>
-      </a>
-      <a href="https://www.linkedin.com/in/klaraingersoll" class="contact-link">
-        <span class="contact-link-label">LinkedIn</span>
-        <span class="contact-link-value">Connect online</span>
-        <span class="contact-link-arrow">→</span>
-      </a>
+      <a href="/cdn-cgi/l/email-protection#385354594a591651565f5d4a4b575454785f55595154165b5755" class="contact-btn">Get in touch →</a>
     </div>
   </section>
 
-  <footer>
-    <span>© 2026 Klara Ingersoll</span>
-    <span>Planning + Design Studio · Western Massachusetts</span>
-  </footer>
-
-</body>
-</html>
+  <f
