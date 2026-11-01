@@ -1,950 +1,699 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klara Ingersoll — Planning + Design Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --white: #EDE8DF;
-      --black: #2A2A28;
-      --concrete: #B8B0A4;
-      --concrete-dark: #6B6560;
-      --rust: #2A2A28;
-      --steel: #2A2A28;
-      --gallery: #E4DED4;
-      --brick: #2A2A28;
-      --river: #A8C8D8;
-      --display: 'Barlow Condensed', sans-serif;
-      --body: 'IBM Plex Mono', monospace;
-      --mono: 'IBM Plex Mono', monospace;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--white);
-      color: var(--black);
-      font-family: var(--body);
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 3rem;
-      height: 52px;
-      background: var(--white);
-      border-bottom: 1px solid var(--black);
-    }
-
-    .nav-name {
-      font-family: var(--display);
-      font-weight: 400;
-      font-size: 1rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--black);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 3rem;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--concrete-dark);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--rust); }
-
-    .nav-tag {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      color: var(--steel);
-      border: 1px solid var(--steel);
-      padding: 0.3rem 0.6rem;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      padding-top: 52px;
-      background: var(--white);
-      display: grid;
-      grid-template-rows: 1fr auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Black outlined grid */
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(42,42,40,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(42,42,40,0.08) 1px, transparent 1px);
-      background-size: 80px 80px;
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 4rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 4rem;
-      align-items: end;
-    }
-
-    .hero-left {}
-
-    .hero-floor-number {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      color: var(--concrete-dark);
-      margin-bottom: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .hero-floor-number::before {
-      content: '';
-      width: 40px;
-      height: 1px;
-      background: var(--black);
-    }
-
-    .hero-name {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(2.8rem, 7vw, 6.5rem);
-      line-height: 0.88;
-      letter-spacing: -0.01em;
-      text-transform: uppercase;
-      color: var(--black);
-      margin-bottom: 3rem;
-    }
-
-    .hero-name .name-line2 {
-      display: block;
-      color: var(--black);
-      font-weight: 700;
-    }
-
-    .hero-bottom {
-      display: flex;
-      align-items: flex-end;
-      gap: 4rem;
-    }
-
-    .hero-tagline {
-      font-family: var(--mono);
-      font-weight: 300;
-      font-style: normal;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      line-height: 1.9;
-      color: var(--concrete-dark);
-      max-width: 460px;
-      border-left: 2px solid var(--black);
-      padding-left: 1.5rem;
-    }
-
-    .hero-meta {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      color: var(--concrete-dark);
-      line-height: 2;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .hero-meta a {
-      color: var(--black);
-      text-decoration: none;
-      display: block;
-      margin-top: 0.5rem;
-      transition: opacity 0.2s;
-    }
-
-    .hero-meta a:hover { opacity: 0.5; }
-
-    /* RIVER — industrial overhead map style */
-    .river-scene {
-      height: 200px;
-      position: relative;
-      z-index: 1;
-      overflow: hidden;
-      border-top: 1px solid var(--steel);
-    }
-
-    /* BANNER STRIPE */
-    .banner {
-      background: var(--gallery);
-      padding: 0.8rem 4rem;
-      display: flex;
-      gap: 4rem;
-      border-bottom: 1px solid var(--black);
-      border-top: 1px solid var(--black);
-      overflow: hidden;
-    }
-
-    .banner-text {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--concrete-dark);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* ABOUT */
-    .about {
-      background: var(--gallery);
-      padding: 7rem 4rem;
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 6rem;
-      border-bottom: 1px solid var(--black);
-    }
-
-    .about-sidebar {
-      position: sticky;
-      top: 70px;
-    }
-
-    .section-number {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: var(--concrete-dark);
-      margin-bottom: 0.8rem;
-    }
-
-    .section-heading {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(2.5rem, 4vw, 3.5rem);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      line-height: 0.95;
-      color: var(--black);
-    }
-
-    .section-heading em {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--rust);
-      display: block;
-    }
-
-    .about-divider {
-      width: 40px;
-      height: 3px;
-      background: var(--rust);
-      margin: 1.5rem 0;
-    }
-
-    .about-location {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--concrete-dark);
-      line-height: 1.8;
-    }
-
-    .about-content p {
-      font-family: var(--body);
-      font-weight: 300;
-      font-size: 0.65rem;
-      letter-spacing: 0.05em;
-      line-height: 1.9;
-      color: var(--black);
-      margin-bottom: 1.5rem;
-    }
-
-    .about-content p:last-child { margin-bottom: 0; }
-
-    .about-content strong {
-      font-weight: 600;
-      color: var(--rust);
-    }
-
-    /* SERVICES */
-    .services {
-      background: var(--white);
-      border-bottom: 1px solid var(--black);
-      border-top: 1px solid var(--black);
-    }
-
-    .services-header {
-      padding: 5rem 4rem 3rem;
-      border-bottom: 1px solid var(--black);
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-    }
-
-    .services-header-sub {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--concrete-dark);
-      max-width: 300px;
-      line-height: 1.8;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .service-block {
-      padding: 3.5rem;
-      border-right: 1px solid var(--black);
-      position: relative;
-      transition: background 0.3s;
-    }
-
-    .service-block:last-child { border-right: none; }
-    .service-block:hover { background: var(--gallery); }
-
-    .service-block::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: transparent;
-      transition: background 0.3s;
-    }
-
-    .service-block:hover::before { background: var(--black); }
-
-    .service-num {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      color: var(--concrete-dark);
-      margin-bottom: 2rem;
-    }
-
-    .service-title {
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 1.6rem;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      line-height: 1.1;
-      color: var(--black);
-      margin-bottom: 1.2rem;
-    }
-
-    .service-desc {
-      font-family: var(--body);
-      font-weight: 300;
-      font-size: 0.88rem;
-      line-height: 1.85;
-      color: var(--concrete-dark);
-    }
-
-    /* IMAGE GRID */
-    .image-grid-section {
-      border-top: 1px solid var(--black);
-      border-bottom: 1px solid var(--black);
-    }
-
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0;
-    }
-
-    .image-cell {
-      aspect-ratio: 1 / 1;
-      overflow: hidden;
-      border-right: 1px solid var(--black);
-      border-bottom: 1px solid var(--black);
-      background: var(--gallery);
-    }
-
-    .image-cell:nth-child(2n) { border-right: none; }
-    .image-cell:nth-last-child(-n+2) { border-bottom: none; }
-
-    .image-cell img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .image-cell:hover img { transform: scale(1.03); }
-
-    .selected-work {
-      background: var(--gallery);
-      padding: 6rem 4rem;
-      border-bottom: 1px solid var(--black);
-      border-top: 1px solid var(--black);
-    }
-
-    .work-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 4rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--black);
-    }
-
-    .work-header .section-heading { color: var(--black); }
-    .work-header .section-heading em { color: var(--concrete-dark); }
-    .work-header .section-number { color: var(--concrete-dark); }
-
-    .work-count {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.15em;
-      color: var(--concrete-dark);
-    }
-
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0;
-      border: 1px solid var(--black);
-    }
-
-    .work-item {
-      background: var(--gallery);
-      padding: 3rem;
-      border-right: 1px solid var(--black);
-      border-bottom: 1px solid var(--black);
-      transition: background 0.3s;
-    }
-
-    .work-item:nth-child(even) { border-right: none; }
-    .work-item:nth-last-child(-n+2) { border-bottom: none; }
-    .work-item:hover { background: var(--white); }
-
-    .work-tag {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--concrete-dark);
-      margin-bottom: 1rem;
-    }
-
-    .work-title {
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 1.15rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--black);
-      margin-bottom: 0.3rem;
-      line-height: 1.2;
-    }
-
-    .work-location {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: var(--concrete-dark);
-      margin-bottom: 1.2rem;
-    }
-
-    .work-desc {
-      font-family: var(--body);
-      font-weight: 300;
-      font-size: 0.85rem;
-      line-height: 1.85;
-      color: var(--concrete-dark);
-    }
-
-    /* CREDENTIALS */
-    .credentials {
-      background: var(--gallery);
-      padding: 6rem 4rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border-bottom: 1px solid var(--black);
-    }
-
-    .cred-block {
-      padding-right: 5rem;
-      border-right: 1px solid var(--black);
-    }
-
-    .cred-block:last-child {
-      padding-right: 0;
-      padding-left: 5rem;
-      border-right: none;
-    }
-
-    .cred-heading {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.2rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--black);
-      margin-bottom: 2.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid var(--black);
-      display: inline-block;
-    }
-
-    .cred-item {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(42,42,40,0.15);
-      align-items: flex-start;
-    }
-
-    .cred-item:last-child { border-bottom: none; margin-bottom: 0; }
-
-    .cred-index {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      color: var(--concrete-dark);
-      flex-shrink: 0;
-      margin-top: 0.2rem;
-    }
-
-    .cred-text strong {
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      display: block;
-      margin-bottom: 0.2rem;
-      color: var(--black);
-    }
-
-    .cred-text span {
-      font-family: var(--body);
-      font-weight: 300;
-      font-size: 0.82rem;
-      color: var(--concrete-dark);
-    }
-
-    /* CONTACT */
-    .contact {
-      background: var(--white);
-      padding: 7rem 4rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: center;
-    }
-
-    .contact-heading {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      text-transform: uppercase;
-      letter-spacing: 0.01em;
-      line-height: 0.9;
-      color: var(--black);
-    }
-
-    .contact-heading em {
-      font-style: italic;
-      font-weight: 300;
-      color: var(--rust);
-      display: block;
-    }
-
-    .contact-sub {
-      font-family: var(--body);
-      font-weight: 300;
-      font-size: 0.95rem;
-      line-height: 1.8;
-      color: var(--concrete-dark);
-      border-top: 1px solid var(--black);
-      padding-top: 2rem;
-      border-top: 1px solid var(--black);
-    }
-
-    .contact-right {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .contact-btn {
-      display: inline-block;
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--white);
-      background: var(--black);
-      border: 1px solid var(--black);
-      padding: 1.2rem 2.5rem;
-      text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .contact-btn:hover {
-      background: transparent;
-      color: var(--black);
-    }
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem 0;
-      border-bottom: 1px solid var(--black);
-      text-decoration: none;
-      transition: padding-left 0.3s;
-    }
-
-    .contact-link:first-child { border-top: 1px solid var(--black); }
-
-    .contact-link:hover { padding-left: 1rem; }
-
-    .contact-link-label {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--concrete-dark);
-    }
-
-    .contact-link-value {
-      font-family: var(--display);
-      font-weight: 400;
-      font-size: 1.1rem;
-      letter-spacing: 0.04em;
-      color: var(--black);
-      transition: color 0.3s;
-    }
-
-    .contact-link:hover .contact-link-value { color: var(--concrete-dark); }
-
-    .contact-link-arrow {
-      font-size: 0.8rem;
-      color: var(--concrete-dark);
-      transition: color 0.3s, transform 0.3s;
-    }
-
-    .contact-link:hover .contact-link-arrow {
-      color: var(--black);
-      transform: translateX(4px);
-    }
-
-    footer {
-      background: var(--gallery);
-      padding: 1.2rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--black);
-    }
-
-    footer span {
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--concrete-dark);
-    }
-
-    /* ANIMATIONS */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(16px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-name { animation: fadeIn 0.9s ease forwards; }
-    .hero-tagline { animation: fadeIn 0.9s 0.2s ease forwards; opacity: 0; }
-    .hero-meta { animation: fadeIn 0.9s 0.35s ease forwards; opacity: 0; }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .hero-content { grid-template-columns: 1fr; padding: 3rem 2rem; }
-      .hero-bottom { flex-direction: column; gap: 2rem; }
-      .hero-meta { text-align: left; }
-      .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
-      .about-sidebar { position: static; }
-      .services-header { flex-direction: column; align-items: flex-start; gap: 1rem; padding: 3rem 2rem 2rem; }
-      .services-grid { grid-template-columns: 1fr; }
-      .service-block { border-right: none; border-bottom: 1px solid var(--concrete); }
-      .selected-work { padding: 5rem 2rem; }
-      .work-grid { grid-template-columns: 1fr; }
-      .credentials { grid-template-columns: 1fr; gap: 4rem; padding: 4rem 2rem; }
-      .cred-block { padding-right: 0; border-right: none; border-bottom: 1px solid var(--concrete); padding-bottom: 4rem; }
-      .cred-block:last-child { padding-left: 0; padding-bottom: 0; border-bottom: none; }
-      .contact { grid-template-columns: 1fr; gap: 4rem; padding: 5rem 2rem; }
-      nav { padding: 0 1.5rem; }
-      .nav-links { gap: 1.2rem; }
-      .banner { padding: 0.8rem 2rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <div class="nav-name">Klara Ingersoll</div>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="nav-tag">Western Massachusetts</div>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Still Life Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italianno&family=Caudex:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,500;1,300&display=swap">
+<style>
+/* Layout: one sheet of poster paper. The papercut bowl sits in the middle; each piece lifts off the paper and opens its own service page.
+   Palette from 3 Women (Millie's yellow, Pinkie's pink, the desert lavender, the pool blue, the poster's sepia script)
+   and from the Still Life book (lowercase spaced titles, each set in its piece's colour). */
+:root {
+  --board: #EFEBE5;        /* the pale grey-white of the 3 Donne poster paper */
+  --sepia: #6E4A2E;        /* deep sepia for links and buttons */
+  --title: #8B5A35;        /* the poster's tobacco-brown title lettering */
+  --credit: #2A2420;       /* the poster's black credit lettering */
+  --biro: #2F55A4;         /* the blue ballpoint of the letter on the poster */
+  --ink: #3E3128;          /* body text */
+  --millie: #E9CF6B;
+  --pinkie: #E4AFB4;
+  --sage: #B8A6C8;
+  --pool: #A9C6D3;
+  --wash: #FAF7F1;
+  /* piece colours, darkened enough to read on the board */
+  --c-flower: #A34654;
+  --c-lemon: #806212;
+  --c-bowl: #1C5F6A;
+  --rim: #2A7F92;          /* the painted blue rim of the bowl */
+  --frame: 12px;
+  --c-leaves: #2A6B4E;
+  --c-orange: #A8461A;
+  --c-peach: #94583F;
+  --font-script: "Italianno", "Snell Roundhand", "Apple Chancery", cursive;
+  --font-book: "Caudex", "Iowan Old Style", Georgia, serif;
+  --font-body: "Spectral", "Iowan Old Style", Georgia, serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box }
+html { background: var(--board) }
+body {
+  background: var(--board) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .28 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); color: var(--ink);
+  font-family: var(--font-body); font-weight: 300; font-size: 1.0625rem; line-height: 1.65;
+  padding-inline: calc(var(--frame) + 16px); padding-block: var(--frame) calc(var(--frame) + 4rem); min-height: 100%;
+}
+/* the poster's horizontal fold creases, very faint; they scroll with the sheet */
+html { position: relative }
+html::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent calc(33.3% - 1px), rgba(255,255,255,.5) calc(33.3% - 1px), rgba(255,255,255,.5) 33.3%, rgba(70,60,50,.06) 33.3%, rgba(70,60,50,.06) calc(33.3% + 1px), transparent calc(33.3% + 1px)),
+    linear-gradient(180deg, transparent calc(66.6% - 1px), rgba(255,255,255,.5) calc(66.6% - 1px), rgba(255,255,255,.5) 66.6%, rgba(70,60,50,.06) 66.6%, rgba(70,60,50,.06) calc(66.6% + 1px), transparent calc(66.6% + 1px));
+}
+/* the bowl's blue rim, drawn around the whole page */
+body::after {
+  content: ""; position: fixed; z-index: 100; pointer-events: none;
+  inset: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px) 0;
+  border: var(--frame) solid var(--rim);
+}
+@media (max-width: 720px) { :root { --frame: 7px } }
+main { position: relative; z-index: 1; max-width: 980px; margin-inline: auto }
+a { color: var(--sepia) }
+:focus-visible { outline: 2px dashed var(--sepia); outline-offset: 4px; border-radius: 2px }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+
+/* ——— Top bar ——— */
+.topbar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem;
+  padding-block: 1rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+}
+.topbar .home-link { text-decoration: none; color: var(--sepia); font-weight: 500 }
+.topbar nav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1.4rem }
+.topbar nav a { text-decoration: none; color: var(--ink) }
+.topbar nav a:hover { color: var(--sepia); text-decoration: underline }
+.cta {
+  display: inline-block; text-decoration: none; font-family: var(--font-body); font-weight: 500;
+  font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--sepia) !important; padding-block: 0.2rem; border-bottom: 1px solid currentColor;
+}
+.cta:hover { color: var(--ink) !important }
+.cta.solid { background: var(--sepia); color: var(--wash) !important; padding: 0.7rem 1.1rem; border: 0; border-radius: 2px }
+.cta.solid:hover { background: var(--ink); color: var(--wash) !important }
+
+/* ——— Masthead ——— */
+.mast { text-align: center; padding-block: 1.5rem 0.25rem }
+.mast h1 {
+  font-family: var(--font-script); font-weight: 400; color: var(--title);
+  text-transform: uppercase; letter-spacing: 0.03em; text-wrap: balance;
+  font-size: clamp(2.6rem, 9vw, 5.6rem); line-height: 1; margin: 0;
+}
+.mast .tag { margin: 0.5rem auto 0; font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--biro) }
+.mast .tag .nw { white-space: nowrap }
+
+/* ——— The bowl ——— */
+.stage { position: relative; width: min(100%, 560px); aspect-ratio: 1.15; margin: 2.25rem auto 0 }
+.piece {
+  position: absolute; display: block; border-radius: 40%;
+  transition: transform .45s cubic-bezier(.2,.8,.2,1), filter .45s;
+  filter: drop-shadow(0 1px 0 rgba(62,49,40,.10));
+}
+.piece img { display: block; width: 100%; height: auto; pointer-events: none }
+.piece:hover, .piece:focus-visible {
+  transform: translateY(-8px) rotate(var(--tilt, -2deg)) scale(1.03);
+  filter: drop-shadow(0 14px 12px rgba(62,49,40,.22)); outline: none;
+}
+.piece .say {
+  position: absolute; left: 50%; top: 100%; transform: translate(-50%, 6px);
+  white-space: nowrap; font-family: var(--font-body); font-weight: 500; font-size: 0.72rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--c, var(--sepia));
+  background: color-mix(in srgb, var(--wash) 85%, transparent); padding: 0.2rem 0.5rem; border-radius: 2px;
+  opacity: 0; transition: opacity .3s; pointer-events: none;
+}
+.piece:hover .say, .piece:focus-visible .say { opacity: 1 }
+.stage .piece:hover, .stage .piece:focus-visible { z-index: 20 }
+.piece .say { z-index: 1 }
+.p-bowl      { left: 28.30%; top: 56.25%; width: 63.45%; z-index: 1; --tilt: 0deg; --c: var(--c-bowl) }
+.p-pineapple { left: 1.75%;  top: 9.99%;  width: 40.88%; z-index: 3; --tilt: -3deg; --c: var(--c-leaves) }
+.p-flower    { left: 44.23%; top: 2.07%;  width: 23.76%; z-index: 2; --tilt: 4deg; --c: var(--c-flower) }
+.p-peach     { left: 42.63%; top: 23.40%; width: 25.12%; z-index: 4; --tilt: -2deg; --c: var(--c-peach) }
+.p-orange    { left: 66.63%; top: 21.01%; width: 30.40%; z-index: 4; --tilt: 3deg; --c: var(--c-orange) }
+.p-slice     { left: 39.42%; top: 46.40%; width: 9.84%;  z-index: 5; --tilt: -8deg; --c: var(--c-orange) }
+.p-wedge     { left: 58.30%; top: 43.10%; width: 10.72%; z-index: 5; --tilt: 9deg; --c: var(--c-lemon) }
+.p-flower .say, .p-orange .say { top: auto; bottom: 100%; transform: translate(-50%, -12px) }
+.p-bowl .say { top: 55% }
+.hint { text-align: center; margin: 1rem 0 0; font-family: var(--font-book); font-style: italic; color: var(--biro); font-size: 0.95rem }
+
+.lede { max-width: 32rem; margin: 2.75rem auto 0; text-align: center; font-size: 1.2rem; line-height: 1.6; text-wrap: pretty }
+.lede + .lede { margin-top: 1rem; font-size: 1.05rem }
+.lede em { font-style: italic; color: var(--sepia) }
+.lede-cta { text-align: center; margin-top: 1.75rem }
+
+/* ——— Section headings on home ——— */
+.home-h { text-align: center; margin: 4rem 0 0.25rem; font-family: var(--font-book); font-weight: 400;
+  font-size: 1.05rem; letter-spacing: 0.5em; text-transform: lowercase; color: var(--biro) }
+.home-sub { text-align: center; margin: 0 0 1.5rem; font-size: 0.95rem }
+
+/* ——— Services list ——— */
+.menu {
+  list-style: none; padding: 0; margin: 0 auto; max-width: 52rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 0.25rem 1.75rem;
+}
+.menu a {
+  display: grid; grid-template-columns: 2.8rem 1fr; align-items: center; gap: 0.85rem;
+  padding: 0.7rem 0.25rem; text-decoration: none; color: var(--ink); height: 100%;
+  border-bottom: 1px solid color-mix(in srgb, var(--sepia) 22%, transparent);
+}
+.menu img { width: 2.8rem; height: 2.4rem; object-fit: contain }
+.menu b { display: block; font-weight: 500; font-size: 1rem; color: var(--c, var(--sepia)) }
+.menu small { display: block; font-size: 0.86rem; line-height: 1.4 }
+.menu a:hover b { text-decoration: underline }
+
+/* ——— Selected work ——— */
+.work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.75rem; align-items: start; max-width: 60rem; margin-inline: auto }
+.work figure { margin: 0; min-width: 0 }
+.work img { display: block; width: 100%; height: auto; box-shadow: 0 10px 18px -10px rgba(62,49,40,.35) }
+.work figcaption { margin-top: 0.75rem; font-size: 0.92rem; line-height: 1.45 }
+.work figcaption b { display: block; font-family: var(--font-book); font-weight: 400; font-size: 1.05rem; color: var(--sepia) }
+
+/* ——— Service pages ——— */
+.page { padding-block: 1rem }
+.back { display: inline-block; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--sepia); padding-block: 0.5rem }
+.back:hover { text-decoration: underline }
+.page-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 2.5rem 3.5rem; align-items: start; margin-top: 1.25rem }
+.hero-piece { position: relative; display: grid; place-items: center; padding: 1.5rem; gap: 1.5rem }
+.hero-piece::before {
+  content: ""; position: absolute; inset: 0 4% auto; height: 70%; border-radius: 48% 52% 46% 54% / 55% 45% 55% 45%;
+  background: var(--tint); opacity: .4; filter: blur(8px);
+}
+.hero-piece img { position: relative; width: var(--w, 160px); max-width: 100%; height: auto; transform: rotate(var(--tilt, -2deg)); filter: drop-shadow(0 12px 10px rgba(62,49,40,.18)) }
+.book-label { position: relative; margin: 0; font-family: var(--font-book); font-size: 1.05rem; letter-spacing: 0.5em; text-transform: lowercase; color: var(--c) }
+.prompt { position: relative; margin: 0; max-width: 19rem; font-family: var(--font-book); font-size: 1.05rem; line-height: 1.6; color: var(--c); white-space: pre-line; text-align: left }
+.copy { min-width: 0; max-width: 36rem }
+.copy h2 { font-family: var(--font-book); font-weight: 400; color: var(--ink); font-size: clamp(2rem, 4.5vw, 2.6rem); line-height: 1.15; margin: 0 0 1.25rem; text-wrap: balance }
+.copy .lead { font-size: 1.22rem; line-height: 1.55; margin: 0 0 1.25rem; text-wrap: pretty }
+.copy p { margin: 0 0 1rem }
+.copy h3 { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; color: var(--biro); margin: 2rem 0 0.5rem }
+.copy ul, .copy ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.35rem }
+.copy li::marker { color: var(--c, var(--sepia)) }
+.page-cta { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem }
+.page-cta p { margin: 0; font-size: 1rem }
+.next { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--sepia) 22%, transparent); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.95rem }
+/* ——— Feature card standing in for photos ——— */
+.feature-card { display: grid; gap: 0.6rem; align-content: center; min-height: 18rem; padding: 2.25rem 2rem; text-decoration: none; color: var(--ink);
+  background: color-mix(in srgb, var(--pinkie) 38%, var(--wash)); box-shadow: 0 10px 18px -10px rgba(62,49,40,.35); transition: transform .3s }
+.feature-card:hover, .feature-card:focus-visible { transform: translateY(-3px) }
+.fc-pub { font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--biro) }
+.fc-title { font-family: var(--font-book); font-size: clamp(1.6rem, 3.4vw, 2.2rem); line-height: 1.15; color: var(--ink); text-wrap: balance }
+.fc-sub { font-family: var(--font-book); font-style: italic; font-size: 1.1rem; color: var(--c-peach) }
+.fc-meta { font-size: 0.85rem }
+.fc-read { margin-top: 0.75rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sepia); border-bottom: 1px solid currentColor; justify-self: start }
+/* ——— Related work on service pages ——— */
+.related { list-style: none; padding: 0 !important; margin: 0.75rem 0 0; display: grid !important; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 1rem !important }
+.related a { display: block; text-decoration: none; color: var(--ink) }
+.related img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 8px 14px -9px rgba(62,49,40,.4); transition: transform .3s }
+.related a:hover img, .related a:focus-visible img { transform: translateY(-3px) }
+.related b { display: block; margin-top: 0.5rem; font-family: var(--font-book); font-weight: 400; font-size: 0.98rem; line-height: 1.3; color: var(--sepia) }
+.related a:hover b { text-decoration: underline }
+.related-ph { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 0.75rem; text-align: center; font-family: var(--font-book); font-style: italic; font-size: 0.95rem; color: var(--ink); background: color-mix(in srgb, var(--pinkie) 38%, var(--wash)); box-shadow: 0 8px 14px -9px rgba(62,49,40,.4) }
+.related small { display: block; font-size: 0.8rem; line-height: 1.35 }
+.next a { text-decoration: none }
+.next a:hover { text-decoration: underline }
+
+/* ——— Booking ——— */
+.book-steps { list-style: none; padding: 0 !important; margin: 1.25rem 0 0; display: grid; gap: 1rem; counter-reset: step }
+.book-steps li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.75rem; align-items: baseline; counter-increment: step }
+.book-steps li::before { content: counter(step); font-family: var(--font-script); font-size: 2.4rem; line-height: 0.6; color: var(--sepia) }
+.contact { margin-top: 0.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem }
+.contact code { font-family: var(--font-body); font-size: 1.1rem; font-weight: 400; user-select: all; padding: 0.35rem 0.75rem; background: color-mix(in srgb, var(--wash) 70%, transparent); border-radius: 3px; overflow-wrap: anywhere }
+.contact button { font: inherit; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; background: transparent; color: var(--sepia); border: 1px solid var(--sepia); border-radius: 2px; padding: 0.45rem 0.85rem }
+.contact button:hover { background: var(--sepia); color: var(--wash) }
+.subject { font-family: var(--font-book); font-style: italic }
+.calendly { margin: 1.75rem 0 0.35rem }
+.calendly a { font-family: var(--font-book); font-size: 1.35rem; color: var(--sepia); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 0.1rem }
+.calendly a:hover { color: var(--ink) }
+.calendly-note { margin: 0; font-size: 0.95rem }
+
+
+/* ——— Past projects ——— */
+.projects-head { max-width: 40rem; margin: 1.25rem auto 0; text-align: center }
+.projects-head h2 { font-family: var(--font-book); font-weight: 400; color: var(--ink); font-size: clamp(2rem, 4.5vw, 2.6rem); line-height: 1.15; margin: 0 0 0.75rem }
+.projects-head p { margin: 0 auto; font-size: 1.1rem; text-wrap: pretty }
+.jump { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; margin-top: 1.25rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase }
+.jump a { text-decoration: none } .jump a:hover { text-decoration: underline }
+.filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 1.75rem 0 0 }
+.filters button { font: inherit; font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; background: transparent; color: var(--sepia); border: 1px solid color-mix(in srgb, var(--sepia) 45%, transparent); border-radius: 999px; padding: 0.4rem 0.85rem }
+.filters button[aria-pressed="true"] { background: var(--sepia); color: var(--wash); border-color: var(--sepia) }
+.project-list { list-style: none; padding: 0; margin: 2.5rem 0 0; display: grid; gap: 3.5rem }
+.project { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 1.5rem 2.75rem; align-items: start }
+.project:nth-child(even) .shots { order: 2 }
+.shots { display: grid; gap: 0.75rem; grid-template-columns: repeat(var(--n, 1), minmax(0, 1fr)); align-items: start; min-width: 0 }
+.shots img, .gallery img { display: block; width: 100%; height: auto; box-shadow: 0 10px 18px -10px rgba(62,49,40,.35) }
+.project .info { min-width: 0 }
+.project .kind { margin: 0; font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--biro) }
+.project h3 { margin: 0.35rem 0 0.75rem; font-family: var(--font-book); font-weight: 400; font-size: 1.6rem; line-height: 1.2; color: var(--ink); text-wrap: balance }
+.project p { margin: 0 0 0.85rem }
+.project .info b { font-weight: 500; color: var(--ink) }
+.project .role { font-size: 0.92rem; font-style: italic }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem 0.75rem; margin-top: 0.5rem }
+.tags a { font-size: 0.78rem; letter-spacing: 0.06em; text-decoration: none; color: var(--c); border-bottom: 1px solid currentColor }
+.see-all { text-align: center; margin-top: 2rem }
+.gallery-h { text-align: center; margin: 5rem 0 0.25rem; font-family: var(--font-book); font-weight: 400; font-size: 1.05rem; letter-spacing: 0.5em; text-transform: lowercase; color: var(--biro) }
+.gallery { columns: 3 15rem; column-gap: 1.25rem; margin-top: 1.75rem }
+.gallery figure { break-inside: avoid; margin: 0 0 1.5rem }
+.gallery figcaption { margin-top: 0.55rem; font-size: 0.88rem; line-height: 1.4 }
+.gallery figcaption b { font-family: var(--font-book); font-weight: 400; color: var(--sepia) }
+.photo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.75rem }
+.photo-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 10px 18px -10px rgba(62,49,40,.35) }
+@media (max-width: 720px) {
+  .photo-grid { grid-template-columns: 1fr }
+  .project { grid-template-columns: 1fr }
+  .project:nth-child(even) .shots { order: 0 }
+}
+
+footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sepia) }
+
+@media (max-width: 720px) {
+  .page-grid { grid-template-columns: 1fr; gap: 0.5rem }
+  .work { grid-template-columns: 1fr; max-width: 26rem }
+  .piece .say { display: none }
+  .topbar { justify-content: center }
+}
+@media (prefers-reduced-motion: reduce) {
+  .piece, .piece .say { transition: none }
+  .piece:hover, .piece:focus-visible { transform: none }
+}
+</style>
+
+<main>
+  <header class="topbar">
+    <a class="home-link" href="#">Still Life Studio</a>
+    <nav aria-label="Site">
+      <a href="#services">Services</a>
+      <a href="#projects">Past work</a>
+      <a class="cta solid" href="#book">Let’s chat</a>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <div id="home">
+    <div class="mast">
+      <h1>Still Life Studio</h1>
+      <p class="tag"><span class="nw">Branding &amp; Marketing</span> · <span class="nw">Klara Ingersoll</span></p>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-left">
-        <div class="hero-floor-number">Planning + Design Studio</div>
-        <h1 class="hero-name">Klara<span class="name-line2">Ingersoll</span></h1>
-        <div class="hero-bottom">
-          <p class="hero-tagline">Planning, design, and visual storytelling rooted in local history and material culture.</p>
-          <div class="hero-meta">
-            Connecticut River Valley<br>
-            Western Massachusetts<br>
-            <br>
-            Available for consulting<br>
-            + studio work<br>
-            <a href="/cdn-cgi/l/email-protection#b7dcdbd6c5d699ded9d0d2c5c4d8dbdbf7d0dad6dedb99d4d8da">Get in touch →</a>
-          </div>
+    <nav class="stage" aria-label="Services">
+      <a class="piece p-bowl" href="#identity"><img src="cutouts/bowl.png" alt=""><span class="say">Brand identity</span><span class="sr">Brand identity</span></a>
+      <a class="piece p-pineapple" href="#social"><img src="cutouts/pineapple.png" alt=""><span class="say">Social media</span><span class="sr">Social media</span></a>
+      <a class="piece p-flower" href="#photo"><img src="cutouts/flower.png" alt=""><span class="say">Photo &amp; editorial</span><span class="sr">Photo and editorial</span></a>
+      <a class="piece p-peach" href="#newsletters"><img src="cutouts/peach.png" alt=""><span class="say">Newsletters &amp; interviews</span><span class="sr">Newsletters and interviews</span></a>
+      <a class="piece p-orange" href="#print"><img src="cutouts/orange.png" alt=""><span class="say">Print &amp; posters</span><span class="sr">Print and posters</span></a>
+      <a class="piece p-slice" href="#strategy"><img src="cutouts/slice.png" alt=""><span class="say">Strategy &amp; workshops</span><span class="sr">Strategy and workshops</span></a>
+      <a class="piece p-wedge" href="#story"><img src="cutouts/wedge.png" alt=""><span class="say">Story &amp; copywriting</span><span class="sr">Brand story and copywriting</span></a>
+    </nav>
+
+    <p class="lede">A branding, marketing and media studio to help you slow down and share the story of your work with care.</p>
+    <p class="lede">My work is thoughtful, listening-focused and deeply collaborative. I have made magazines, taught workshops, received a master’s in regional planning focused on cultural landscapes and place branding, and worked on projects for nonprofits, authors and towns.</p>
+
+    <h2 class="home-h" id="services">services</h2>
+    <ul class="menu">
+      <li><a href="#social" style="--c: var(--c-leaves)"><img src="cutouts/pineapple.png" alt=""><span><b>Social media</b><small>Post and story graphics, templates, content calendars</small></span></a></li>
+      <li><a href="#newsletters" style="--c: var(--c-peach)"><img src="cutouts/peach.png" alt=""><span><b>Newsletters &amp; interviews</b><small>Newsletter design, maker interviews, email campaigns</small></span></a></li>
+      <li><a href="#photo" style="--c: var(--c-flower)"><img src="cutouts/flower.png" alt=""><span><b>Photo &amp; editorial</b><small>Shoots, art direction, editorial spreads, magazines</small></span></a></li>
+      <li><a href="#print" style="--c: var(--c-orange)"><img src="cutouts/orange.png" alt=""><span><b>Print &amp; posters</b><small>Posters, book covers, packaging, signage</small></span></a></li>
+      <li><a href="#identity" style="--c: var(--c-bowl)"><img src="cutouts/bowl.png" alt=""><span><b>Brand identity</b><small>Logo, palette, typefaces, guidelines</small></span></a></li>
+      <li><a href="#story" style="--c: var(--c-lemon)"><img src="cutouts/wedge.png" alt=""><span><b>Story &amp; copywriting</b><small>Origin story, about page, website and press copy</small></span></a></li>
+      <li><a href="#strategy" style="--c: var(--c-orange)"><img src="cutouts/slice.png" alt=""><span><b>Strategy &amp; workshops</b><small>Listening sessions, marketing plans, team workshops</small></span></a></li>
+    </ul>
+
+    <h2 class="home-h" id="work">recent work</h2>
+    <div class="work">
+      <figure id="work-elements" data-cats="print">
+        <img src="work/postcard.jpg" alt="Watercolour and collage wedding sign: a pale yellow sun on a pink field, framed by painted leaves, with lavender sprigs and torn grey and blue paper hills" loading="lazy">
+        <figcaption><b>The Elements</b>Watercolour and collage wedding sign</figcaption>
+      </figure>
+      <figure id="work-window" data-cats="print">
+        <img src="work/below-the-window.jpg" alt="Book cover for Below the Window: a rust-red window frame drawn over a pale yellow brick pattern" loading="lazy">
+        <figcaption><b>Below the Window</b>Book cover design</figcaption>
+      </figure>
+      <figure id="work-quonk" data-cats="identity">
+        <img src="work/quonk-logo.jpg" alt="Quonk logo: an ornamented gold spiral, like the opening letter of a storybook, on royal blue" loading="lazy">
+        <figcaption><b>Quonk</b>Medieval-inspired logo design for an interactive theatre company</figcaption>
+      </figure>
+    </div>
+    <h2 class="home-h" id="projects">past work</h2>
+    <p class="home-sub">Identities, publications, places and events, each one shaped by listening first.</p>
+    <ul class="project-list">
+      <li class="project" id="work-orla" data-cats="newsletters story">
+        <div class="shots" style="--n: 1"><a class="feature-card" href="https://orlastories.substack.com/p/interview-with-justin-of-valdah" target="_blank" rel="noopener">
+          <span class="fc-pub">Orla Stories</span>
+          <span class="fc-title">Interview with Justin of valdah</span>
+          <span class="fc-sub">Reviving Vintage Denim Workwear</span>
+          <span class="fc-meta">By Klara Ingersoll · March 2026</span>
+          <span class="fc-read">Read the interview →</span>
+        </a></div>
+        <div class="info">
+          <p class="kind">Newsletter · Interview</p>
+          <h3>Orla Stories</h3>
+          <p>A journal for Orla that I came up with and helped shape: long-form interviews with the artists and makers whose work Orla carries, visited in their own studios.</p>
+          <p>For the first feature I visited Justin in his Northampton studio. His label, valdah, is named after his great-grandmother, a seamstress, and he makes clothes inspired by early and mid-century workwear on vintage machines, including a 1921 Singer 31 and a Wilcox &amp; Gibbs chain-stitcher. We talked about mule ear pockets, wartime workwear, a 1950s Lee “beer jacket” and why clothes should be worn until they wear out.</p>
+          <p class="role">What I did: Concept, editorial planning, interviewing, writing</p>
+          <div class="tags"><a href="#newsletters" style="--c: var(--c-peach)">Newsletters &amp; interviews</a> <a href="#story" style="--c: var(--c-lemon)">Story &amp; copywriting</a></div>
         </div>
-      </div>
+      </li>
+      <li class="project" id="work-orange" data-cats="strategy identity print">
+        <div class="shots" style="--n: 1"><img src="work/kth/orange-wayfinding-board.jpg" alt="Orange wayfinding signs and palette: the Welcome to Orange gateway sign and the Wheeler Memorial Library directional sign, a monarch butterfly, and swatches for charcoal, marigold, monarch orange, rust and vein black" loading="lazy"><img src="work/kth/riverfront-park.jpg" alt="Concept site plan of Orange Riverfront Park on the Millers River: an entrance archway and string-lit promenade, brick paving, a music stage, a plaza with movable seating, machine-part sculptures, a stargazing bar, rain gardens and a riverwalk" loading="lazy"></div>
+        <div class="info">
+          <p class="kind">Community research · Wayfinding · Placemaking</p>
+          <h3>Downtown Orange, Massachusetts</h3>
+          <p>Two connected projects with one goal: encouraging people to gather in Orange’s downtown and to use and enjoy it.</p>
+          <p><b>Wayfinding.</b> Highway signs in the town centre pointed travellers somewhere else, so Orange felt like a place to pass through. Community surveys showed what residents loved: flight, from parachuting at the Jump Town airfield to the monarch butterfly migration, and the nickname “The Friendly Town.” That became a visual language of parachutes over Millers River, with identity guidelines, a sign family and location maps. Each sign is planted with butterfly milkweed, making them natural signs for nature’s wayfinders.</p>
+          <p><b>Riverfront park.</b> Teenagers already gathered on the old industrial riverfront, often in conflict with the authorities. Instead of moving them on, the park plan starts from what was already happening there. I mapped how people used the site, documented the industrial artefacts and ran community surveys. The plan reuses machinery from nearby factories and adds a “star bar” for stargazing, a music stage, rain gardens and lighting.</p>
+          <p class="role">What I did: Community research and surveys, site mapping, visual identity, guidelines, signage design, park concept design</p>
+          <div class="tags"><a href="#strategy" style="--c: var(--c-orange)">Strategy &amp; workshops</a> <a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#print" style="--c: var(--c-orange)">Print &amp; posters</a></div>
+        </div>
+      </li>
+      <li class="project" id="work-valley" data-cats="strategy print">
+        <div class="shots" style="--n: 1"><img src="work/kth/valley-on-board.jpg" alt="Workshop participants marking up a regional transit map" loading="lazy"></div>
+        <div class="info">
+          <p class="kind">Engagement · Workshops · Media</p>
+          <h3>Valley on Board Transit Study</h3>
+          <p>A Federal Transit Administration HOPE grant project in western Massachusetts, reaching communities usually left out of transport planning, including Environmental Justice communities and rural residents.</p>
+          <p>I designed engagement tools that made planning trade-offs feel concrete: a “would you rather” conversation card game and a polling system using custom “bus bucks.” Television appearances and media outreach brought in people who never come to public meetings.</p>
+          <p class="role">What I did: Engagement design, workshop facilitation, media outreach, presentation materials</p>
+          <div class="tags"><a href="#strategy" style="--c: var(--c-orange)">Strategy &amp; workshops</a> <a href="#print" style="--c: var(--c-orange)">Print &amp; posters</a></div>
+        </div>
+      </li>
+      <li class="project" id="work-housemates" data-cats="photo identity strategy">
+        <div class="shots" style="--n: 2"><img src="work/kth/housemates-covers.jpg" alt="Housemates Magazine covers: red, black and multicoloured cut-paper tulips in four colourways" loading="lazy"><img src="work/kth/housemates-workshop.jpg" alt="Poster for the Housemates workshop at the Harvard GSD Design Research Forum" loading="lazy"></div>
+        <div class="info">
+          <p class="kind">Editorial · Brand identity · Events</p>
+          <h3>Housemates Magazine</h3>
+          <p>A magazine about living together: the housemate relationship, which is how many young people live, yet rarely gets told as a story.</p>
+          <p>I built the identity, edited the magazine and co-led a speculative design workshop with Harvard Graduate School of Design’s Design Research Forum, asking architects and designers to draw what “home” means to them.</p>
+          <p class="role">What I did: Identity, editorial, event design, workshop facilitation</p>
+          <div class="tags"><a href="#photo" style="--c: var(--c-flower)">Photo &amp; editorial</a> <a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#strategy" style="--c: var(--c-orange)">Strategy &amp; workshops</a></div>
+        </div>
+      </li>
+      <li class="project" id="work-okay" data-cats="photo identity social">
+        <div class="shots" style="--n: 2"><img src="work/kth/okay-issue-2.jpg" alt="OKAY Mag Issue 2, Pink Drink: cover with two young women leaning together" loading="lazy"><img src="work/kth/okay-site.jpg" alt="OKAY Magazine website with a contributor list on a red and yellow shape" loading="lazy"></div>
+        <div class="info">
+          <p class="kind">Publishing · Community</p>
+          <h3>OKAY Magazine</h3>
+          <p>A feminist publication and art collective I co-founded, designed, edited and published, made as an alternative to the slick look of commercial fashion magazines.</p>
+          <p>Issues were organised around themes like “the color pink,” with a DIY zine aesthetic that welcomed imperfection. The community grew through printed issues, a website and an online reading group for bell hooks’ <em>All About Love</em>.</p>
+          <p class="role">What I did: Co-founder, art direction, design, editing, community building</p>
+          <div class="tags"><a href="#photo" style="--c: var(--c-flower)">Photo &amp; editorial</a> <a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#social" style="--c: var(--c-leaves)">Social media</a></div>
+        </div>
+      </li>
+      <li class="project" id="work-lowtide" data-cats="story print">
+        <div class="shots" style="--n: 1"><img src="work/kth/low-tide.jpg" alt="Low Tide podcast cover: illustrated figures wading in a tide pool under a pale sun" loading="lazy"></div>
+        <div class="info">
+          <p class="kind">Audio · Storytelling</p>
+          <h3>Low Tide Podcast</h3>
+          <p>A podcast I produced, co-wrote and co-hosted, treating the news as a beach to comb at low tide together rather than something to consume alone.</p>
+          <p>It mixed reporting, conversation and narrative storytelling, including an episode on union organising at McLean Hospital. I composed the theme song in the style of a children’s TV show, a playful sound that told listeners this would be a different kind of political show.</p>
+          <p class="role">What I did: Producing, writing, hosting, sound identity, cover illustration</p>
+          <div class="tags"><a href="#story" style="--c: var(--c-lemon)">Story &amp; copywriting</a> <a href="#print" style="--c: var(--c-orange)">Print &amp; posters</a></div>
+        </div>
+      </li>
+      <li class="project" id="work-galleries" data-cats="identity strategy">
+        <div class="shots" style="--n: 2"><img src="work/kth/laundry-room.jpg" alt="Live music in a small white gallery room" loading="lazy"><img src="work/kth/crush-gallery.jpg" alt="A long woven textile hanging on a gallery wall" loading="lazy"></div>
+        <div class="info">
+          <p class="kind">Spaces · Visual identity</p>
+          <h3>The Laundry Room &amp; Crush Galleries</h3>
+          <p>Two galleries made from overlooked spaces. At King’s College, students already gathered in the underground laundry room, so it became a gallery for feminist work. In Halifax’s North End, a vacant convenience store became Crush Gallery.</p>
+          <p>Both kept the character of what the space had been. Crush’s hand-painted facade and logo grew from a soda can found on site.</p>
+          <p class="role">What I did: Concept, curation, identity, programming</p>
+          <div class="tags"><a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#strategy" style="--c: var(--c-orange)">Strategy &amp; workshops</a></div>
+        </div>
+      </li>
+    </ul>
+
+    <h3 class="gallery-h" id="photos">photos</h3>
+    <div class="photo-grid">
+      <img src="work/photos/photo-1.jpg" alt="Two young women in pink against a sunlit concrete wall, one holding a pale pink umbrella" loading="lazy">
+      <img src="work/photos/photo-2.jpg" alt="A hand holding a small mirror that reflects a face with closed eyes and coral eyeshadow" loading="lazy">
+      <img src="work/photos/photo-3.jpg" alt="A woman in a pink dress stands with arms outstretched against a concrete wall, casting a long shadow" loading="lazy">
+      <img src="work/photos/photo-4.jpg" alt="A woman in a pink coat and cream skirt kicks one leg high in front of a chain-link fence at dusk" loading="lazy">
     </div>
-
-    <!-- RIVER — overhead industrial map -->
-    <div class="river-scene">
-      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-
-        <!-- Sky / background -->
-        <rect width="1440" height="200" fill="#EDE8DF"/>
-
-        <!-- Far hill -->
-        <path d="M0,95 C180,72 380,62 580,74 C780,86 980,65 1180,74 C1320,80 1400,70 1440,72 L1440,200 L0,200 Z" fill="#D4CFC6"/>
-
-        <!-- Mid hill -->
-        <path d="M0,118 C160,100 360,92 560,104 C760,116 940,98 1120,106 C1280,113 1380,103 1440,106 L1440,200 L0,200 Z" fill="#C4BDB4"/>
-
-        <!-- River — solid papercut blue -->
-        <path d="M0,135 C200,124 420,118 640,128 C860,138 1060,120 1260,128 C1360,133 1410,127 1440,128 L1440,170 C1420,172 1360,176 1260,172 C1060,165 860,180 640,172 C420,164 200,168 0,160 Z" fill="#A8C8D8"/>
-
-      </svg>
-    </div>
-  </section>
-
-  <!-- RUST BANNER -->
-  <div class="banner">
-      <span class="banner-text">Planning · Design · Wayfinding · Grant Consulting · Place Branding · Storefront Design · Community Engagement · Visual Communication · Western Massachusetts</span>
-    <span class="banner-text">Planning · Design · Wayfinding · Grant Consulting · Place Branding · Storefront Design · Community Engagement · Visual Communication · Western Massachusetts</span>
   </div>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-sidebar">
-      <div class="section-number">// 01</div>
-      <h2 class="section-heading">People<br>Place<br><em>Policy</em></h2>
-      <div class="about-divider"></div>
-      <div class="about-location">
-        Connecticut River Valley<br>
-        Western Massachusetts<br>
-        <br>
-        M.R.P. · UMass Amherst<br>
-        B.A. · Critical Media Studies
+  <!-- SERVICE PAGES -->
+  <article class="page" id="social" hidden style="--tint: var(--pool); --tilt: -3deg; --c: var(--c-leaves)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 250px">
+        <img src="cutouts/pineapple.png" alt="Papercut pineapple leaves">
+        <p class="book-label">the leaves</p>
+        <p class="prompt">Find a plant you have kept for a while.
+Notice which leaves turned toward the light.
+Ask yourself: where is my attention already going,
+and what would grow if I tended it?</p>
+      </div>
+      <div class="copy">
+        <h2>Social media</h2>
+        <p class="lead">Posts that look like you on every platform, and a rhythm you can actually keep.</p>
+        <p>A set of graphics and templates built from your identity, so each post feels considered without starting from scratch. The best posts usually show the work being made.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Post, carousel and story graphics</li>
+          <li>Editable templates for your team</li>
+          <li>Content calendar and caption writing</li>
+          <li>Launch and event announcements</li>
+        </ul>
       </div>
     </div>
-    <div class="about-content">
-      <p>With a <strong>Master's in Regional Planning from UMass Amherst</strong> and experience at VHB — conducting environmental review, agency coordination, spatial analysis, and community engagement on projects ranging from New York City's housing policy to small-town downtown revitalization — Klara connects people, place, and policy.</p>
-      <p>She believes every place has a visual language waiting to be defined, one rooted in its <strong>material culture, local history, and the everyday experience</strong> of the people who live there. Through graphic design, storefront and façade concepts, and wayfinding systems, she translates that language into the built environment.</p>
-      <p>Her background in <strong>graphic design and journalism</strong> adds a strong visual and storytelling sensibility to work that spans transit equity research, municipal cultural planning, stakeholder engagement, and downtown revitalization. She works with municipalities, nonprofits, and small businesses across Western Massachusetts and beyond.</p>
-    </div>
-  </section>
+  </article>
 
-  <!-- SERVICES -->
-  <section class="services" id="services">
-    <div class="services-header">
-      <div>
-        <div class="section-number">// 02</div>
-        <h2 class="section-heading">Services<br><em>+ Offerings</em></h2>
+  <article class="page" id="newsletters" hidden style="--tint: var(--sage); --tilt: -2deg; --c: var(--c-peach)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 160px">
+        <img src="cutouts/peach.png" alt="Papercut peach on a green leaf">
+        <p class="book-label">the peach</p>
       </div>
-      <div class="services-header-sub">
-        Planning, design, and visual communication
-      </div>
-    </div>
-    <div class="services-grid">
-      <div class="service-block">
-        <p class="service-num">// 02.01</p>
-        <h3 class="service-title">Grant Consulting + Community Development</h3>
-        <p class="service-desc">Helping municipalities, nonprofits, and small businesses navigate funding programs, from CDBG Storefront Improvement to state and federal community development grants. Services include eligibility review, application writing, stakeholder engagement strategy, participatory planning, and community outreach design — from first contact to final submission.</p>
-      </div>
-      <div class="service-block">
-        <p class="service-num">// 02.02</p>
-        <h3 class="service-title">Storefront, Wayfinding + Place Branding</h3>
-        <p class="service-desc">Signage, awnings, façade concepts, wayfinding systems, and place-based visual identity rooted in local material culture. From a single storefront to a whole downtown district — design that helps communities tell their story through the built environment and makes places more legible, vibrant, and locally rooted.</p>
-      </div>
-      <div class="service-block">
-        <p class="service-num">// 02.03</p>
-        <h3 class="service-title">Graphic Design + Visual Communication</h3>
-        <p class="service-desc">Brand identity, print collateral, posters, editorial design, and marketing materials for organizations, small businesses, and cultural institutions. Visual language development that connects a project or organization to its audience — from logo and brand systems to campaign design, publication layout, and digital assets.</p>
+      <div class="copy">
+        <h2>Newsletters &amp; interviews</h2>
+        <p class="lead">Social platforms change their rules every season. A mailing list belongs to you.</p>
+        <p>A newsletter people look forward to: interviews with the makers behind the work, behind-the-scenes photos and an early look at what comes next. A small list of people who care does more than a large audience that scrolls past.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Newsletter design and templates</li>
+          <li>Interviews with makers and collaborators, with photos</li>
+          <li>Your first issues, written together</li>
+          <li>Email campaigns for launches</li>
+        </ul>
+        <h3>Example</h3>
+        <p><a href="https://substack.com/@orlastories" target="_blank" rel="noopener">Orla Stories</a>. I came up with the idea for this newsletter and helped work out what it would be. I also did an interview for it, with photos, to tell the story behind the brand.</p>
       </div>
     </div>
-  </section>
+  </article>
 
-  <!-- IMAGE GRID -->
-  <section class="image-grid-section" id="gallery">
-    <div class="image-grid">
-      <div class="image-cell"><img src="image-1.png" alt="Project image 1"></div>
-      <div class="image-cell"><img src="image-3.png" alt="Project image 2"></div>
-      <div class="image-cell"><img src="image-4.png" alt="Project image 3"></div>
-      <div class="image-cell"><img src="image-6.PNG" alt="Project image 4"></div>
+  <article class="page" id="photo" hidden style="--tint: var(--pinkie); --tilt: 4deg; --c: var(--c-flower)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 150px">
+        <img src="cutouts/flower.png" alt="Papercut pink carnation">
+        <p class="book-label">the flower</p>
+        <p class="prompt">Find a flower that is beginning to turn.
+Paint it today.
+Paint it again in three days.
+Notice what changed.
+Ask yourself: what have I been waiting to begin
+because I cannot yet see how it ends?</p>
+      </div>
+      <div class="copy">
+        <h2>Photo &amp; editorial</h2>
+        <p class="lead">Pictures and pages that give your work room to be looked at slowly.</p>
+        <p>From planning a shoot to laying out the finished spread. I have co-founded, art directed and designed magazines, and I bring the same care to lookbooks, catalogues and features about your work.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Photo shoots and art direction</li>
+          <li>Editorial spreads and features</li>
+          <li>Magazines, zines and lookbooks</li>
+          <li>Catalogues and annual reports</li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </article>
 
-  <!-- SELECTED WORK -->
-  <section class="selected-work" id="work">
-    <div class="work-header">
-      <div>
-        <div class="section-number" style="color: var(--steel)">// 03</div>
-        <h2 class="section-heading">Selected<br><em>Work</em></h2>
+  <article class="page" id="print" hidden style="--tint: var(--millie); --tilt: 3deg; --c: var(--c-orange)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 190px">
+        <img src="cutouts/orange.png" alt="Papercut orange">
+        <p class="book-label">the orange</p>
       </div>
-      <div class="work-count">06 Projects</div>
-    </div>
-    <div class="work-grid">
-      <div class="work-item">
-        <p class="work-tag">// Wayfinding · Orange, MA</p>
-        <h3 class="work-title">Flying Towards Revitalization</h3>
-        <p class="work-location">Orange, MA</p>
-        <p class="work-desc">A wayfinding and cultural plan for a post-industrial New England town. Through participatory planning, discovered pollinators as a unifying conservation symbol across political divides — developing a visual identity centered on monarch butterflies integrating ecological restoration, historic preservation, and community placemaking.</p>
-      </div>
-      <div class="work-item">
-        <p class="work-tag">// Transit Equity · FTA-Funded Research</p>
-        <h3 class="work-title">Valley on Board Long-Range Planning Study</h3>
-        <p class="work-location">Pioneer Valley Transit Authority, Western MA</p>
-        <p class="work-desc">Research Fellow applying inclusive engagement methods under a Federal Transit Administration HOPE Grant, prioritizing Environmental Justice communities. Developed participatory mapping tools and authored the final grant report with actionable recommendations for equitable route redesign.</p>
-      </div>
-      <div class="work-item">
-        <p class="work-tag">// Housing Policy · Environmental Review</p>
-        <h3 class="work-title">City of Yes for Housing Opportunity EIS</h3>
-        <p class="work-location">New York City, NY</p>
-        <p class="work-desc">Contributed to the Environmental Impact Statement for New York City's landmark housing opportunity initiative. Conducted GIS-based spatial analysis and land use assessment through CEQR processes, coordinating with NYC agencies including DEP and SHPO.</p>
-      </div>
-      <div class="work-item">
-        <p class="work-tag">// Historic Preservation · Archival Research</p>
-        <h3 class="work-title">Neighborhood Heritage Documentation</h3>
-        <p class="work-location">Cobble Hill Association, Brooklyn, NY</p>
-        <p class="work-desc">Developed systematic archival research protocols for neighborhood preservation documentation in partnership with the Center for Brooklyn History. Applied qualitative research methods to community identity and cultural heritage conservation.</p>
-      </div>
-      <div class="work-item">
-        <p class="work-tag">// Public Scholarship · Editorial Design</p>
-        <h3 class="work-title">Housemates Magazine</h3>
-        <p class="work-location">Western Massachusetts + Harvard Graduate School of Design</p>
-        <p class="work-desc">Co-founded an interdisciplinary publication translating planning and design concepts for public audiences. Led a workshop at the Harvard Graduate School of Design on accessible communication of urbanist research.</p>
-      </div>
-      <div class="work-item">
-        <p class="work-tag">// Downtown Revitalization · Strategic Planning</p>
-        <h3 class="work-title">New York Forward — Highland Falls</h3>
-        <p class="work-location">Highland Falls, NY · VHB</p>
-        <p class="work-desc">Developed downtown profiles and strategic recommendations for the Village of Highland Falls under the New York Forward revitalization initiative, focusing on community development opportunities and place-based planning strategies.</p>
+      <div class="copy">
+        <h2>Print &amp; posters</h2>
+        <p class="lead">Things people can hold, pin up and come across in the world.</p>
+        <p>Posters for events and productions, covers for books, and signs that help people find their way. Print is where a brand becomes part of a place.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Event and production posters</li>
+          <li>Book covers</li>
+          <li>Packaging, labels and stationery</li>
+          <li>Signage and wayfinding</li>
+          <li>Flyers, brochures and invitations</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </article>
 
-  <!-- CREDENTIALS -->
-  <section class="credentials" id="credentials">
-    <div class="cred-block">
-      <h3 class="cred-heading">Education</h3>
-      <div class="cred-item">
-        <div class="cred-index">01</div>
-        <div class="cred-text">
-          <strong>Master's in Regional Planning</strong>
-          <span>UMass Amherst · Cultural Preservation · Sustainable Community Development · Transportation Equity</span>
+  <article class="page" id="identity" hidden style="--tint: var(--pool); --tilt: 0deg; --c: var(--c-bowl)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 300px">
+        <img src="cutouts/bowl.png" alt="Papercut bowl with a blue rim">
+        <p class="book-label">the bowl</p>
+        <p class="prompt">Find a container. Trace its outline.
+Inside its outline, write down
+what it has held.
+Ask yourself: what am I holding?
+What do I want to be holding?
+What can I release?</p>
+      </div>
+      <div class="copy">
+        <h2>Brand identity</h2>
+        <p class="lead">The bowl that holds everything else: a visual language people recognise wherever they meet you.</p>
+        <p>We decide what your brand holds and what it can let go of. Then we give it a look that feels the way your work feels, and guidelines so every post, page and poster belongs together.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Logo and marks</li>
+          <li>Colour palette and typefaces</li>
+          <li>Positioning, naming and taglines</li>
+          <li>Brand guidelines</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <article class="page" id="story" hidden style="--tint: var(--millie); --tilt: 9deg; --c: var(--c-lemon)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 90px">
+        <img src="cutouts/wedge.png" alt="Papercut lemon wedge">
+        <p class="book-label">the lemon</p>
+        <p class="prompt">Print out a story you know too well.
+Cut it up.
+Rearrange it.
+Read it again,
+and see what is revealed.</p>
+      </div>
+      <div class="copy">
+        <h2>Story &amp; copywriting</h2>
+        <p class="lead">The words underneath everything you make.</p>
+        <p>Where you come from, what drives you, what you will not compromise on. We read it aloud, cut it back and build it up again until it holds, then carry it into every page and post.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Origin story and about page</li>
+          <li>Brand narrative, in long and short versions</li>
+          <li>Website and product copy</li>
+          <li>Press releases and funding applications</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <article class="page" id="strategy" hidden style="--tint: var(--pinkie); --tilt: -8deg; --c: var(--c-orange)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 85px">
+        <img src="cutouts/slice.png" alt="Papercut orange slice">
+        <p class="book-label">the slice</p>
+      </div>
+      <div class="copy">
+        <h2>Strategy &amp; workshops</h2>
+        <p class="lead">Every project begins by listening. Not ready for a whole project? Start with one slice.</p>
+        <p>We talk about how you started, who keeps coming back to you and what your audience is looking for. From there we plan which channels are worth your time and when to launch. Workshops draw on <em>Still Life: Simple Prompts for Creative Practice</em>, my small book of exercises built around the objects in this bowl.</p>
+        <h3>What this includes</h3>
+        <ul>
+          <li>Listening sessions with you and your customers</li>
+          <li>Marketing plan and seasonal calendar</li>
+          <li>Campaigns, launches and events</li>
+          <li>One-to-one sessions and team workshops</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <article class="page" id="book" hidden style="--tint: var(--pool); --tilt: 0deg; --c: var(--sepia)">
+    <a class="back" href="#">← Back to the bowl</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 300px">
+        <img src="cutouts/bowl.png" alt="Papercut bowl with a blue rim">
+      </div>
+      <div class="copy">
+        <h2>Let’s chat</h2>
+        <p class="lead">I’d love to hear about your work and where you feel stuck. No preparation needed and no obligation.</p>
+        <p class="calendly"><a href="https://calendly.com/klara-ingersoll" target="_blank" rel="noopener">Pick a time on Calendly →</a></p>
+        <p class="calendly-note">Choose any open slot and you’ll get a confirmation with a video link.</p>
+        <h3>Prefer email?</h3>
+        <div class="contact">
+          <code id="email-addr">klara.ingersoll@gmail.com</code>
+          <button type="button" id="copy-email">Copy address</button>
         </div>
       </div>
-      <div class="cred-item">
-        <div class="cred-index">02</div>
-        <div class="cred-text">
-          <strong>BA Critical Media Studies</strong>
-          <span>UMass Amherst · Journalism, Public Policy, Media</span>
-        </div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-index">03</div>
-        <div class="cred-text">
-          <strong>Foundation Year Programme</strong>
-          <span>University of King's College, Halifax, Canada · Philosophy · History of Science · Literature</span>
-        </div>
-      </div>
     </div>
-    <div class="cred-block">
-      <h3 class="cred-heading">Experience</h3>
-      <div class="cred-item">
-        <div class="cred-index">01</div>
-        <div class="cred-text">
-          <strong>VHB, New York</strong>
-          <span>Environmental review · Housing policy · Historic landmarks research</span>
-        </div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-index">02</div>
-        <div class="cred-text">
-          <strong>Pioneer Valley Transit Authority</strong>
-          <span>FTA-funded transit equity research, participatory mapping</span>
-        </div>
-      </div>
-      <div class="cred-item">
-        <div class="cred-index">03</div>
-        <div class="cred-text">
-          <strong>Town of Orange, MA</strong>
-          <span>Wayfinding plan · Cultural landscapes research · Downtown revitalization strategy</span>
-        </div>
-      </div>
-    </div>
-  </section>
+  </article>
 
-  <!-- CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact-left">
-      <p class="contact-sub">Open to consulting, collaboration, and studio projects across Western Massachusetts and beyond.</p>
-    </div>
-    <div class="contact-right">
-      <a href="/cdn-cgi/l/email-protection#385354594a591651565f5d4a4b575454785f55595154165b5755" class="contact-btn">Get in touch →</a>
-    </div>
-  </section>
 
-  <f
+  <footer>Still Life Studio · Klara Ingersoll · Papercut collage by hand</footer>
+</main>
+
+<script>
+(function () {
+  var home = document.getElementById('home');
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var order = ['social', 'newsletters', 'photo', 'print', 'identity', 'story', 'strategy'];
+  var names = { social: 'Social media', newsletters: 'Newsletters & interviews', photo: 'Photo & editorial', print: 'Print & posters', identity: 'Brand identity', story: 'Story & copywriting', strategy: 'Strategy & workshops' };
+
+  pages.forEach(function (p) {
+    var copy = p.querySelector('.copy');
+    var i = order.indexOf(p.id);
+    if (i < 0) return;
+    var matches = Array.prototype.slice.call(document.querySelectorAll('[data-cats]')).filter(function (w) {
+      return w.getAttribute('data-cats').split(' ').indexOf(p.id) > -1;
+    });
+    if (matches.length) {
+      var h = document.createElement('h3'); h.textContent = 'Related work'; copy.appendChild(h);
+      var list = document.createElement('ul'); list.className = 'related';
+      matches.forEach(function (w) {
+        var img = w.querySelector('img');
+        var title = w.querySelector('h3, figcaption b');
+        var kind = w.querySelector('.kind');
+        var sub = kind ? kind.textContent : (w.querySelector('figcaption') ? w.querySelector('figcaption').textContent.replace(title.textContent, '') : '');
+        var li = document.createElement('li');
+        var a = document.createElement('a'); a.href = '#' + w.id;
+        if (img) { var im = document.createElement('img'); im.src = img.getAttribute('src'); im.alt = ''; im.loading = 'lazy'; a.appendChild(im); }
+        else { var ph = document.createElement('span'); ph.className = 'related-ph'; ph.textContent = title.textContent; a.appendChild(ph); }
+        var b = document.createElement('b'); b.textContent = title.textContent;
+        var sm = document.createElement('small'); sm.textContent = sub;
+        a.appendChild(b); a.appendChild(sm); li.appendChild(a); list.appendChild(li);
+      });
+      copy.appendChild(list);
+    }
+    var prev = order[(i + order.length - 1) % order.length], next = order[(i + 1) % order.length];
+    var nav = document.createElement('nav');
+    nav.className = 'next';
+    nav.setAttribute('aria-label', 'More services');
+    nav.innerHTML = '<a href="#' + prev + '">← ' + names[prev] + '</a><a href="#' + next + '">' + names[next] + ' →</a>';
+    copy.appendChild(nav);
+  });
+
+  function show() {
+    var id = location.hash.replace('#', '');
+    var el = id ? document.getElementById(id) : null;
+    var target = el ? el.closest('.page') : null;
+    home.hidden = !!target;
+    pages.forEach(function (p) { p.hidden = p !== target; });
+    if (target && el !== target) {
+      el.scrollIntoView();
+    } else if (target) {
+      window.scrollTo(0, 0);
+      var h = target.querySelector('h2'); h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true });
+    } else if (id) {
+      var el = document.getElementById(id);
+      if (el) el.scrollIntoView();
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }
+  window.addEventListener('hashchange', show);
+  show();
+
+
+
+  var btn = document.getElementById('copy-email');
+  btn.addEventListener('click', function () {
+    var node = document.getElementById('email-addr');
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(node);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected: press Cmd+C';
+    }
+    try { navigator.clipboard.writeText(node.textContent).then(function () { btn.textContent = 'Copied'; }, selectIt); }
+    catch (e) { selectIt(); }
+  });
+})();
+</script>
+
+</body></html>
