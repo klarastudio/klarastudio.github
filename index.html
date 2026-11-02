@@ -176,9 +176,8 @@ a { color: var(--sepia) }
 .copy .lead { font-size: 1.22rem; line-height: 1.55; margin: 0 0 1.25rem; text-wrap: pretty }
 .copy p { margin: 0 0 1rem }
 .copy h3 { font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500; color: var(--biro); margin: 2rem 0 0.5rem }
-.svc-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.75rem }
+.svc-photos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin-top: 0.75rem; max-width: 24rem }
 .svc-photos img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 8px 14px -9px rgba(62,49,40,.4) }
-.svc-photos-more { margin-top: 0.75rem }
 .copy ul, .copy ol { margin: 0; padding-left: 1.2rem; display: grid; gap: 0.35rem }
 .copy li::marker { color: var(--c, var(--sepia)) }
 .page-cta { margin-top: 2.5rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem }
@@ -276,10 +275,10 @@ a { color: var(--sepia) }
 .gallery figure { break-inside: avoid; margin: 0 0 1.5rem }
 .gallery figcaption { margin-top: 0.55rem; font-size: 0.88rem; line-height: 1.4 }
 .gallery figcaption b { font-family: var(--font-book); font-weight: 400; color: var(--sepia) }
-.photo-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.75rem }
+.photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 1.75rem auto 0; max-width: 52rem }
 .photo-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 10px 18px -10px rgba(62,49,40,.35) }
 @media (max-width: 720px) {
-  .photo-grid { grid-template-columns: 1fr }
+  .photo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
   .project { grid-template-columns: 1fr }
   .project:nth-child(even) .shots { order: 0 }
 }
@@ -579,7 +578,6 @@ because I cannot yet see how it ends?</p>
           <img src="work/photos/photo-2.jpg" alt="A hand holding a small mirror that reflects a face with closed eyes and coral eyeshadow" loading="lazy">
           <img src="work/photos/photo-4.jpg" alt="A woman in a pink coat and cream skirt kicks one leg high in front of a chain-link fence at dusk" loading="lazy">
         </div>
-        <p class="svc-photos-more"><a href="#photos">See all photographs →</a></p>
       </div>
     </div>
   </article>
