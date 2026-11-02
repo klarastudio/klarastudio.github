@@ -28,6 +28,7 @@
   --c-leaves: #2A6B4E;
   --c-orange: #A8461A;
   --c-peach: #94583F;
+  --c-cherry: #9E2A33;
   --font-script: "Italianno", "Snell Roundhand", "Apple Chancery", cursive;
   --font-book: "Caudex", "Iowan Old Style", Georgia, serif;
   --font-body: "Spectral", "Iowan Old Style", Georgia, serif;
@@ -333,6 +334,7 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
       <li><a href="#newsletters" style="--c: var(--c-peach)"><img src="cutouts/peach.png" alt=""><span><b>Newsletters &amp; interviews</b><small>Newsletter design, maker interviews, email campaigns</small></span></a></li>
       <li><a href="#photo" style="--c: var(--c-flower)"><img src="cutouts/flower.png" alt=""><span><b>Photo &amp; editorial</b><small>Shoots, art direction, editorial spreads, magazines</small></span></a></li>
       <li><a href="#print" style="--c: var(--c-orange)"><img src="cutouts/orange.png" alt=""><span><b>Print &amp; posters</b><small>Posters, book covers, packaging, signage</small></span></a></li>
+      <li><a href="#merch" style="--c: var(--c-cherry)"><img src="cutouts/cherries.png" alt=""><span><b>Merch &amp; invitations</b><small>Invitation suites, hats, shirts, mugs, totes, pins</small></span></a></li>
       <li><a href="#identity" style="--c: var(--c-bowl)"><img src="cutouts/bowl.png" alt=""><span><b>Brand identity</b><small>Logo, palette, typefaces, guidelines</small></span></a></li>
       <li><a href="#story" style="--c: var(--c-lemon)"><img src="cutouts/wedge.png" alt=""><span><b>Story &amp; copywriting</b><small>Origin story, about page, website and press copy</small></span></a></li>
       <li><a href="#strategy" style="--c: var(--c-orange)"><img src="cutouts/slice.png" alt=""><span><b>Strategy &amp; workshops</b><small>Listening sessions, marketing plans, team workshops</small></span></a></li>
@@ -341,7 +343,7 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
 
     <h2 class="home-h" id="work">recent work</h2>
     <div class="work">
-      <figure id="work-elements" data-cats="print">
+      <figure id="work-elements" data-cats="print merch">
         <img src="work/postcard.jpg" alt="Watercolour and collage wedding sign: a pale yellow sun on a pink field, framed by painted leaves, with lavender sprigs and torn grey and blue paper hills" loading="lazy">
         <figcaption><b>The Elements</b>Watercolour and collage wedding sign</figcaption>
       </figure>
@@ -605,6 +607,39 @@ because I cannot yet see how it ends?</p>
     </div>
   </article>
 
+  <article class="page" id="merch" hidden style="--tint: var(--pinkie); --tilt: -4deg; --c: var(--c-cherry)">
+    <a class="back" href="#">← All services</a>
+    <div class="page-grid">
+      <div class="hero-piece" style="--w: 140px">
+        <img src="cutouts/cherries.png" alt="Papercut pair of cherries">
+        <p class="book-label">the cherries</p>
+      </div>
+      <div class="copy">
+        <h2>Merch &amp; invitations</h2>
+        <p class="lead">Objects people keep: the invitation on the fridge, the hat that goes everywhere, the mug someone reaches for every morning.</p>
+        <p>I design printed pieces and merchandise that carry your identity into everyday life, with real care for paper, material and finish. I work with printers and makers I trust and look after production from first sample to delivery, so what arrives feels as considered as the idea behind it.</p>
+        <h3>Invitations &amp; stationery</h3>
+        <ul>
+          <li>Wedding and event invitation suites</li>
+          <li>Save the dates, menus, place cards and signage</li>
+          <li>Letterpress, foil and hand-finished details</li>
+          <li>Greeting cards, postcards and notecards</li>
+        </ul>
+        <h3>Merchandise</h3>
+        <ul>
+          <li>Embroidered hats and caps</li>
+          <li>T-shirts, sweatshirts and workwear</li>
+          <li>Mugs and ceramics</li>
+          <li>Tote bags, scarves and textiles</li>
+          <li>Enamel pins, patches and stickers</li>
+          <li>Art prints, posters and zines</li>
+          <li>Packaging, hang tags and labels</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+
   <article class="page" id="identity" hidden style="--tint: var(--pool); --tilt: 0deg; --c: var(--c-bowl)">
     <a class="back" href="#">← All services</a>
     <div class="page-grid">
@@ -710,8 +745,8 @@ and see what is revealed.</p>
 (function () {
   var home = document.getElementById('home');
   var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
-  var order = ['social', 'newsletters', 'photo', 'print', 'identity', 'story', 'strategy'];
-  var names = { social: 'Social media', newsletters: 'Newsletters & interviews', photo: 'Photo & editorial', print: 'Print & posters', identity: 'Brand identity', story: 'Story & copywriting', strategy: 'Strategy & workshops' };
+  var order = ['social', 'newsletters', 'photo', 'print', 'merch', 'identity', 'story', 'strategy'];
+  var names = { social: 'Social media', newsletters: 'Newsletters & interviews', photo: 'Photo & editorial', print: 'Print & posters', merch: 'Merch & invitations', identity: 'Brand identity', story: 'Story & copywriting', strategy: 'Strategy & workshops' };
 
   pages.forEach(function (p) {
     var copy = p.querySelector('.copy');
