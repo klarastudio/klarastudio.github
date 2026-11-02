@@ -129,7 +129,8 @@ a { color: var(--sepia) }
 /* ——— Section headings on home ——— */
 .home-h { text-align: center; margin: 4rem 0 0.25rem; font-family: var(--font-book); font-weight: 400;
   font-size: 1.05rem; letter-spacing: 0.5em; text-transform: lowercase; color: var(--biro) }
-.home-ask { text-transform: none; letter-spacing: 0.06em; font-size: 1.35rem; font-style: italic }
+.home-ask { text-transform: none; letter-spacing: 0.06em; font-size: clamp(1.65rem, 4.6vw, 2.6rem); line-height: 1.5; font-style: italic; text-wrap: balance; margin-top: 4.5rem; margin-bottom: 1.5rem }
+.home-ask span { padding: 0.15em 0.55em; background: color-mix(in srgb, var(--millie) 62%, transparent); border-radius: 0.3em 0.6em 0.35em 0.7em; box-decoration-break: clone; -webkit-box-decoration-break: clone }
 .home-sub { text-align: center; margin: 0 0 1.5rem; font-size: 0.95rem }
 
 /* ——— Services list ——— */
@@ -327,7 +328,7 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
     <p class="lede">A branding, marketing and media studio to help you slow down and share the story of your work with care.</p>
     <p class="lede">My work is thoughtful, listening-focused and deeply collaborative. I trained as a radio journalist, which taught me to understand an audience and what holds their attention. I have made magazines, taught workshops, received a master’s in regional planning focused on cultural landscapes and place branding, and worked on projects for nonprofits, authors and towns. My process draws on mindfulness and on research into how the creative process works.</p>
 
-    <h2 class="home-h home-ask" id="services">What can I help you with?</h2>
+    <h2 class="home-h home-ask" id="services"><span>What can I help you with?</span></h2>
     <ul class="menu">
       <li><a href="#social" style="--c: var(--c-leaves)"><img src="cutouts/pineapple.png" alt=""><span><b>Social media</b><small>Post and story graphics, templates, content calendars</small></span></a></li>
       <li><a href="#newsletters" style="--c: var(--c-peach)"><img src="cutouts/peach.png" alt=""><span><b>Newsletters &amp; interviews</b><small>Newsletter design, maker interviews, email campaigns</small></span></a></li>
@@ -532,8 +533,8 @@ and what would grow if I tended it?</p>
       </div>
       <div class="copy">
         <h2>Newsletters &amp; interviews</h2>
-        <p class="lead">Social platforms change their rules every season. A mailing list belongs to you.</p>
-        <p>A newsletter people look forward to: interviews with the makers behind the work, behind-the-scenes photos and an early look at what comes next. A small list of people who care does more than a large audience that scrolls past.</p>
+        <p class="lead">A newsletter that celebrates the people in your community and helps the world of your work grow.</p>
+        <p>I love meeting the makers, friends and collaborators who are part of your story, visiting them where they work and asking about what inspires them. Each issue welcomes your readers a little further into the world you’re building, with interviews, behind-the-scenes photos and a first look at what’s coming next. A small list of people who really care is worth more than a big audience scrolling past, and it’s yours to keep.</p>
         <h3>What this includes</h3>
         <ul>
           <li>Newsletter design and templates</li>
