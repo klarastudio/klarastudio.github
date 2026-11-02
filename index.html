@@ -81,11 +81,11 @@ a { color: var(--sepia) }
 /* ——— Masthead ——— */
 .mast { text-align: center; padding-block: 1.5rem 0.25rem }
 .mast h1 {
-  font-family: var(--font-script); font-weight: 400; color: var(--title);
-  text-transform: uppercase; letter-spacing: 0.03em; text-wrap: balance;
-  font-size: clamp(2.6rem, 9vw, 5.6rem); line-height: 1; margin: 0;
+  font-family: var(--font-body); font-weight: 300; color: var(--rim);
+  text-transform: uppercase; letter-spacing: 0.16em; text-wrap: balance;
+  font-size: clamp(1.9rem, 5.6vw, 3.6rem); line-height: 1.15; margin: 0 0 0 0.16em;
 }
-.mast .tag { margin: 0.5rem auto 0; font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--biro) }
+.mast .tag { margin: 0.5rem auto 0; font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rim) }
 .mast .tag .nw { white-space: nowrap }
 
 /* ——— The bowl ——— */
@@ -153,6 +153,9 @@ a { color: var(--sepia) }
 .work figcaption { margin-top: 0.75rem; font-size: 0.92rem; line-height: 1.45 }
 .work figcaption b { display: block; font-family: var(--font-book); font-weight: 400; font-size: 1.05rem; color: var(--sepia) }
 
+.testimonial { margin: 1rem 0 0; padding: 0.9rem 0 0 1rem; border-left: 2px solid color-mix(in srgb, var(--biro) 55%, transparent) }
+.testimonial p { margin: 0; font-family: var(--font-book); font-style: italic; font-size: 0.95rem; line-height: 1.55; color: var(--ink) }
+.testimonial footer { text-align: left; margin-top: 0.6rem; font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.5; color: var(--biro) }
 /* ——— Service pages ——— */
 .page { padding-block: 1rem }
 .back { display: inline-block; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; color: var(--sepia); padding-block: 0.5rem }
@@ -178,13 +181,36 @@ a { color: var(--sepia) }
 .next { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, var(--sepia) 22%, transparent); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.95rem }
 /* ——— Feature card standing in for photos ——— */
 .feature-card { display: grid; gap: 0.6rem; align-content: center; min-height: 18rem; padding: 2.25rem 2rem; text-decoration: none; color: var(--ink);
-  background: color-mix(in srgb, var(--pinkie) 38%, var(--wash)); box-shadow: 0 10px 18px -10px rgba(62,49,40,.35); transition: transform .3s }
+  background: var(--card, #DDE5D3); box-shadow: 0 10px 18px -10px rgba(62,49,40,.35); transition: transform .3s }
 .feature-card:hover, .feature-card:focus-visible { transform: translateY(-3px) }
+.orla-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin-top: 0.75rem }
+.orla-pair img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; box-shadow: 0 8px 14px -9px rgba(62,49,40,.4) }
+.feature-card .fc-img { display: block; width: calc(100% + 4rem); max-width: none; margin: -2.25rem -2rem 0.9rem; aspect-ratio: 3 / 2; object-fit: cover }
 .fc-pub { font-size: 0.74rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--biro) }
 .fc-title { font-family: var(--font-book); font-size: clamp(1.6rem, 3.4vw, 2.2rem); line-height: 1.15; color: var(--ink); text-wrap: balance }
-.fc-sub { font-family: var(--font-book); font-style: italic; font-size: 1.1rem; color: var(--c-peach) }
+.fc-sub { font-family: var(--font-book); font-style: italic; font-size: 1.1rem; color: var(--fc-accent, #4E6B45) }
 .fc-meta { font-size: 0.85rem }
+.fc-dark { --card: #2E3B2F; --fc-accent: #E8C877; color: #F3EDE0 }
+.fc-dark .fc-title, .fc-dark .fc-meta { color: #F3EDE0 }
+.fc-dark .fc-pub, .fc-dark .fc-read { color: #E8C877 }
 .fc-read { margin-top: 0.75rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--sepia); border-bottom: 1px solid currentColor; justify-self: start }
+/* ——— Syd White home page, rebuilt so the plates move ——— */
+.syd-fig { margin: 0 0 1rem }
+.syd-fig > img { display: block; width: 100%; height: auto; box-shadow: 0 10px 18px -10px rgba(62,49,40,.35) }
+.syd-fig figcaption { margin-top: 0.5rem; font-size: 0.86rem; line-height: 1.4; font-style: italic }
+.syd-refs { margin: 0.5rem 0 0 }
+.syd-refs-h { font-size: 0.74rem !important; letter-spacing: 0.2em; text-transform: uppercase; font-style: normal !important; color: var(--biro); margin: 0 0 0.6rem }
+.syd-refs-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; align-items: start }
+.syd-refs-row figure { margin: 0; min-width: 0 }
+.syd-refs-row img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; box-shadow: 0 8px 14px -9px rgba(62,49,40,.4) }
+.syd-refs-row figcaption { margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.35 }
+.syd-stage { position: relative; aspect-ratio: 1600 / 784; max-width: 100%; overflow: hidden; box-shadow: 0 10px 18px -10px rgba(62,49,40,.35) }
+.syd-bg { position: absolute; inset: 0; width: 100%; height: 100%; display: block }
+.syd-btn { position: absolute; height: auto; transform-origin: 50% 60%;
+  filter: drop-shadow(0 2px 2px rgba(40,30,20,.25));
+  transition: transform .45s cubic-bezier(.2,.9,.25,1.3), filter .45s }
+.syd-btn:hover, .syd-btn:active { transform: translateY(-6%) rotate(var(--r)) scale(1.07); filter: drop-shadow(0 12px 10px rgba(40,30,20,.35)) }
+@media (prefers-reduced-motion: reduce) { .syd-btn { transition: none } .syd-btn:hover, .syd-btn:active { transform: none } }
 /* ——— Related work on service pages ——— */
 .related { list-style: none; padding: 0 !important; margin: 0.75rem 0 0; display: grid !important; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 1rem !important }
 .related a { display: block; text-decoration: none; color: var(--ink) }
@@ -192,7 +218,7 @@ a { color: var(--sepia) }
 .related a:hover img, .related a:focus-visible img { transform: translateY(-3px) }
 .related b { display: block; margin-top: 0.5rem; font-family: var(--font-book); font-weight: 400; font-size: 0.98rem; line-height: 1.3; color: var(--sepia) }
 .related a:hover b { text-decoration: underline }
-.related-ph { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 0.75rem; text-align: center; font-family: var(--font-book); font-style: italic; font-size: 0.95rem; color: var(--ink); background: color-mix(in srgb, var(--pinkie) 38%, var(--wash)); box-shadow: 0 8px 14px -9px rgba(62,49,40,.4) }
+.related-ph { display: grid; place-items: center; aspect-ratio: 4 / 3; padding: 0.75rem; text-align: center; font-family: var(--font-book); font-style: italic; font-size: 0.95rem; color: var(--ink); background: #DDE5D3; box-shadow: 0 8px 14px -9px rgba(62,49,40,.4) }
 .related small { display: block; font-size: 0.8rem; line-height: 1.35 }
 .next a { text-decoration: none }
 .next a:hover { text-decoration: underline }
@@ -231,6 +257,9 @@ a { color: var(--sepia) }
 .project h3 { margin: 0.35rem 0 0.75rem; font-family: var(--font-book); font-weight: 400; font-size: 1.6rem; line-height: 1.2; color: var(--ink); text-wrap: balance }
 .project p { margin: 0 0 0.85rem }
 .project .info b { font-weight: 500; color: var(--ink) }
+.listen { margin: 0.25rem 0 1rem; padding: 0.75rem 0.9rem; background: color-mix(in srgb, var(--millie) 30%, var(--wash)); border-radius: 3px; max-width: 26rem }
+.listen figcaption { margin: 0 0 0.45rem; font-size: 0.74rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--biro) }
+.listen audio { display: block; width: 100%; height: 2.25rem }
 .project .role { font-size: 0.92rem; font-style: italic }
 .tags { display: flex; flex-wrap: wrap; gap: 0.4rem 0.75rem; margin-top: 0.5rem }
 .tags a { font-size: 0.78rem; letter-spacing: 0.06em; text-decoration: none; color: var(--c); border-bottom: 1px solid currentColor }
@@ -290,7 +319,7 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
     </nav>
 
     <p class="lede">A branding, marketing and media studio to help you slow down and share the story of your work with care.</p>
-    <p class="lede">My work is thoughtful, listening-focused and deeply collaborative. I have made magazines, taught workshops, received a master’s in regional planning focused on cultural landscapes and place branding, and worked on projects for nonprofits, authors and towns.</p>
+    <p class="lede">My work is thoughtful, listening-focused and deeply collaborative. I have made magazines, taught workshops, received a master’s in regional planning focused on cultural landscapes and place branding, and worked on projects for nonprofits, authors and towns. My process draws on mindfulness and on research into how the creative process works.</p>
 
     <h2 class="home-h" id="services">services</h2>
     <ul class="menu">
@@ -312,6 +341,10 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
       <figure id="work-window" data-cats="print">
         <img src="work/below-the-window.jpg" alt="Book cover for Below the Window: a rust-red window frame drawn over a pale yellow brick pattern" loading="lazy">
         <figcaption><b>Below the Window</b>Book cover design</figcaption>
+        <blockquote class="testimonial">
+          <p>“Klara offered foundational support on key elements of my art/architecture book, <em>Below the Window</em> (2026), including place-based research, copy editing, and structural design. She also helped conceptualize and design the book cover, mindfully balancing my preferences with her own expertise in graphic design. Klara is creative, curious, endlessly collaborative and an asset to any team or individual who is lucky to work with her.”</p>
+          <footer>Anna Karayorgi, author</footer>
+        </blockquote>
       </figure>
       <figure id="work-quonk" data-cats="identity">
         <img src="work/quonk-logo.jpg" alt="Quonk logo: an ornamented gold spiral, like the opening letter of a storybook, on royal blue" loading="lazy">
@@ -323,19 +356,55 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
     <ul class="project-list">
       <li class="project" id="work-orla" data-cats="newsletters story">
         <div class="shots" style="--n: 1"><a class="feature-card" href="https://orlastories.substack.com/p/interview-with-justin-of-valdah" target="_blank" rel="noopener">
+          <img class="fc-img" src="work/orla/valdah-header.jpg" alt="The word valdah chain-stitched in pale yellow thread on raw selvedge denim, loose threads trailing across a dark wooden table" loading="lazy">
           <span class="fc-pub">Orla Stories</span>
           <span class="fc-title">Interview with Justin of valdah</span>
           <span class="fc-sub">Reviving Vintage Denim Workwear</span>
           <span class="fc-meta">By Klara Ingersoll · March 2026</span>
           <span class="fc-read">Read the interview →</span>
-        </a></div>
+        </a>
+          <div class="orla-pair">
+            <img src="work/orla/valdah-machine.jpg" alt="A hand resting on a strip of denim stitched with valdah beside a black vintage Wilcox &amp; Gibbs sewing machine on a dark wooden table" loading="lazy">
+            <img src="work/orla/valdah-stencil.jpg" alt="Justin, in a striped work shirt and raw denim jeans with arched back pockets, leaning over a pale blue stencil machine" loading="lazy">
+          </div></div>
         <div class="info">
           <p class="kind">Newsletter · Interview</p>
-          <h3>Orla Stories</h3>
-          <p>A journal for Orla that I came up with and helped shape: long-form interviews with the artists and makers whose work Orla carries, visited in their own studios.</p>
-          <p>For the first feature I visited Justin in his Northampton studio. His label, valdah, is named after his great-grandmother, a seamstress, and he makes clothes inspired by early and mid-century workwear on vintage machines, including a 1921 Singer 31 and a Wilcox &amp; Gibbs chain-stitcher. We talked about mule ear pockets, wartime workwear, a 1950s Lee “beer jacket” and why clothes should be worn until they wear out.</p>
-          <p class="role">What I did: Concept, editorial planning, interviewing, writing</p>
+          <h3>Orla Stories: Justin of valdah</h3>
+          <p>An interview I wrote for Orla Stories, the journal of Orla, a shop in Northampton. I also helped define the voice and vision for the publication: long-form conversations with the artists and makers whose work Orla carries, visited in their own studios.</p>
+          <p>I visited Justin in his Northampton studio. His label, valdah, is named after his great-grandmother, a seamstress, and he makes clothes inspired by early and mid-century workwear on vintage machines, including a 1921 Singer 31 and a Wilcox &amp; Gibbs chain-stitcher. We talked about mule ear pockets, wartime workwear, a 1950s Lee “beer jacket” and why clothes should be worn until they wear out.</p>
+          <p class="role">What I did: Interviewing and writing, helping define the publication’s voice and vision</p>
           <div class="tags"><a href="#newsletters" style="--c: var(--c-peach)">Newsletters &amp; interviews</a> <a href="#story" style="--c: var(--c-lemon)">Story &amp; copywriting</a></div>
+        </div>
+      </li>
+      <li class="project" id="work-syd" data-cats="identity photo">
+        <div class="shots" style="--n: 1">
+          <figure class="syd-fig">
+            <div class="syd-stage" role="img" aria-label="Syd White's home page: hand-embossed metal name plates floating over a pale green sky ringed with pink clouds">
+              <img class="syd-bg" src="work/syd/home-bg.jpg" alt=""><img class="syd-btn" src="work/syd/btn-logo.png" alt="" style="left:1.91%;top:4.108%;width:14.931%;--r:-2deg"><img class="syd-btn" src="work/syd/btn-about.png" alt="" style="left:20.417%;top:21.317%;width:11.458%;--r:3deg"><img class="syd-btn" src="work/syd/btn-weddings.png" alt="" style="left:68.924%;top:21.955%;width:16.632%;--r:2.5deg"><img class="syd-btn" src="work/syd/btn-retail.png" alt="" style="left:40.417%;top:32.79%;width:21.007%;--r:-2.5deg"><img class="syd-btn" src="work/syd/btn-social.png" alt="" style="left:13.056%;top:45.113%;width:22.222%;--r:-3deg"><img class="syd-btn" src="work/syd/btn-renders.png" alt="" style="left:68.125%;top:50.708%;width:24.722%;--r:2.5deg"><img class="syd-btn" src="work/syd/btn-handmade.png" alt="" style="left:42.569%;top:55.737%;width:16.007%;--r:2deg"><img class="syd-btn" src="work/syd/btn-media.png" alt="" style="left:20.903%;top:68.768%;width:16.389%;--r:-2deg">
+            </div>
+            <figcaption>Home page. Hover over the plates to see them move.</figcaption>
+          </figure>
+          <figure class="syd-fig">
+            <img src="work/syd/handmade-decor.jpg" alt="Syd White's Handmade decor page: a jute drum chandelier, a beaded pendant lamp, a stained glass nightlight and embossed metal tiles and frames, each cut out and floating on white" loading="lazy">
+            <figcaption>Handmade decor. I wanted each piece to look like it was floating in space, like a button you could pick up.</figcaption>
+          </figure>
+          <figure class="syd-refs">
+            <figcaption class="syd-refs-h">Visual references, from my course <em>Unreal Estate</em></figcaption>
+            <div class="syd-refs-row">
+              <figure><img src="work/syd/ref-pomegranates.jpg" alt="Film still from The Color of Pomegranates: costumed figures before a wall hung with rugs, textiles and gilded frames" loading="lazy"><figcaption><em>The Color of Pomegranates</em> (Sergei Parajanov, 1969): the wall of rugs and framed objects</figcaption></figure>
+              <figure><img src="work/syd/ref-shaker.jpg" alt="Shaker gift drawing: a pale blue house beneath a flowering tree, framed by a ring of diamonds, birds and blossoms" loading="lazy"><figcaption>Shaker gift drawing: everything arranged, ringed and floating on the page</figcaption></figure>
+            </div>
+          </figure>
+        </div>
+        <div class="info">
+          <p class="kind">Website · Art direction</p>
+          <h3>Syd White Portfolio</h3>
+          <p>A portfolio site for Syd, an event stylist who works mostly in fabric. Her professional work was mainly white weddings and corporate events, while her own eye runs richer and stranger, so the site needed to show both: a polished version of authentic.</p>
+          <p>My starting point was that Syd’s work is made by hand and arranged in rooms, so the site should feel arranged too. To emphasize that, I drew on visual references I had shared in <em>Unreal Estate</em>, a course I developed: the film <em>The Color of Pomegranates</em>, with its walls of rugs and clustered objects, and Shaker gift drawings, where everything is arranged and floating on the page. I also looked to Sheila Hicks, Shona Heath and David Stark for their work with fabric and material. We steered away from pastels and anything florist-like toward deeper, jewel-toned and theatrical choices.</p>
+          <p>The home page became an assemblage. Syd embossed the navigation herself in metal; I cut each plate out, colour-corrected them into one consistent metal and set them floating in a cloud-ringed sky, so the buttons feel like objects suspended in space rather than menu items. They lift and tilt when you hover, like something you could reach out and take. Inside, I treated her handmade decor the same way, each piece cut out and floating on white, and gave installations titles like <em>Anthesis</em> and <em>Sea Change</em> so they read as artworks. I also laid out a matching resume.</p>
+          <p class="role">What I did: Research, art direction, home page concept and build, image editing, page layouts, titles and copy, resume design</p>
+          <p class="role"><a href="https://sydw3941.ic.tc/" target="_blank" rel="noopener">Visit Syd’s site →</a></p>
+          <div class="tags"><a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#photo" style="--c: var(--c-flower)">Photo &amp; editorial</a></div>
         </div>
       </li>
       <li class="project" id="work-orange" data-cats="strategy identity print">
@@ -345,7 +414,7 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
           <h3>Downtown Orange, Massachusetts</h3>
           <p>Two connected projects with one goal: encouraging people to gather in Orange’s downtown and to use and enjoy it.</p>
           <p><b>Wayfinding.</b> Highway signs in the town centre pointed travellers somewhere else, so Orange felt like a place to pass through. Community surveys showed what residents loved: flight, from parachuting at the Jump Town airfield to the monarch butterfly migration, and the nickname “The Friendly Town.” That became a visual language of parachutes over Millers River, with identity guidelines, a sign family and location maps. Each sign is planted with butterfly milkweed, making them natural signs for nature’s wayfinders.</p>
-          <p><b>Riverfront park.</b> Teenagers already gathered on the old industrial riverfront, often in conflict with the authorities. Instead of moving them on, the park plan starts from what was already happening there. I mapped how people used the site, documented the industrial artefacts and ran community surveys. The plan reuses machinery from nearby factories and adds a “star bar” for stargazing, a music stage, rain gardens and lighting.</p>
+          <p><b>Riverfront park.</b> Teenagers already gathered on the old industrial riverfront. Instead of moving them on, the park plan starts from what was already happening there. I mapped how people used the site, documented the industrial artefacts and ran community surveys. The plan reuses machinery from nearby factories and adds a “star bar” for stargazing, a music stage, rain gardens and lighting.</p>
           <p class="role">What I did: Community research and surveys, site mapping, visual identity, guidelines, signage design, park concept design</p>
           <div class="tags"><a href="#strategy" style="--c: var(--c-orange)">Strategy &amp; workshops</a> <a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#print" style="--c: var(--c-orange)">Print &amp; posters</a></div>
         </div>
@@ -367,8 +436,8 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
           <p class="kind">Editorial · Brand identity · Events</p>
           <h3>Housemates Magazine</h3>
           <p>A magazine about living together: the housemate relationship, which is how many young people live, yet rarely gets told as a story.</p>
-          <p>I built the identity, edited the magazine and co-led a speculative design workshop with Harvard Graduate School of Design’s Design Research Forum, asking architects and designers to draw what “home” means to them.</p>
-          <p class="role">What I did: Identity, editorial, event design, workshop facilitation</p>
+          <p>I collaborated on the logo, edited the magazine and co-led a speculative design workshop with Harvard Graduate School of Design’s Design Research Forum, asking architects and designers to draw what “home” means to them.</p>
+          <p class="role">What I did: Logo (in collaboration), editorial, event design, workshop facilitation</p>
           <div class="tags"><a href="#photo" style="--c: var(--c-flower)">Photo &amp; editorial</a> <a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#strategy" style="--c: var(--c-orange)">Strategy &amp; workshops</a></div>
         </div>
       </li>
@@ -383,15 +452,19 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
           <div class="tags"><a href="#photo" style="--c: var(--c-flower)">Photo &amp; editorial</a> <a href="#identity" style="--c: var(--c-bowl)">Brand identity</a> <a href="#social" style="--c: var(--c-leaves)">Social media</a></div>
         </div>
       </li>
-      <li class="project" id="work-lowtide" data-cats="story print">
-        <div class="shots" style="--n: 1"><img src="work/kth/low-tide.jpg" alt="Low Tide podcast cover: illustrated figures wading in a tide pool under a pale sun" loading="lazy"></div>
+      <li class="project" id="work-lowtide" data-cats="story">
+        <div class="shots" style="--n: 1"><img src="work/kth/low-tide.jpg" alt="Low Tide podcast cover art: illustrated figures wading in a tide pool under a pale sun" loading="lazy"></div>
         <div class="info">
           <p class="kind">Audio · Storytelling</p>
           <h3>Low Tide Podcast</h3>
           <p>A podcast I produced, co-wrote and co-hosted, treating the news as a beach to comb at low tide together rather than something to consume alone.</p>
           <p>It mixed reporting, conversation and narrative storytelling, including an episode on union organising at McLean Hospital. I composed the theme song in the style of a children’s TV show, a playful sound that told listeners this would be a different kind of political show.</p>
-          <p class="role">What I did: Producing, writing, hosting, sound identity, cover illustration</p>
-          <div class="tags"><a href="#story" style="--c: var(--c-lemon)">Story &amp; copywriting</a> <a href="#print" style="--c: var(--c-orange)">Print &amp; posters</a></div>
+          <figure class="listen">
+            <figcaption>Listen to the theme song</figcaption>
+            <audio controls preload="none" src="work/audio/low-tide-theme.mp3">Your browser can’t play this audio.</audio>
+          </figure>
+          <p class="role">What I did: Producing, writing, hosting, theme song</p>
+          <div class="tags"><a href="#story" style="--c: var(--c-lemon)">Story &amp; copywriting</a></div>
         </div>
       </li>
       <li class="project" id="work-galleries" data-cats="identity strategy">
@@ -462,7 +535,7 @@ and what would grow if I tended it?</p>
           <li>Email campaigns for launches</li>
         </ul>
         <h3>Example</h3>
-        <p><a href="https://substack.com/@orlastories" target="_blank" rel="noopener">Orla Stories</a>. I came up with the idea for this newsletter and helped work out what it would be. I also did an interview for it, with photos, to tell the story behind the brand.</p>
+        <p><a href="https://substack.com/@orlastories" target="_blank" rel="noopener">Orla Stories</a>. I helped define the voice and vision for this journal and wrote its interview with Justin of valdah, telling the story behind his label.</p>
       </div>
     </div>
   </article>
@@ -491,6 +564,8 @@ because I cannot yet see how it ends?</p>
           <li>Magazines, zines and lookbooks</li>
           <li>Catalogues and annual reports</li>
         </ul>
+        <h3>Photography</h3>
+        <p><a href="#photos">See photographs from my shoots →</a></p>
       </div>
     </div>
   </article>
