@@ -212,7 +212,9 @@ a { color: var(--sepia) }
 .syd-btn { position: absolute; height: auto; transform-origin: 50% 60%;
   filter: drop-shadow(0 2px 2px rgba(40,30,20,.25));
   transition: transform .45s cubic-bezier(.2,.9,.25,1.3), filter .45s }
-.syd-btn:hover, .syd-btn:active { transform: translateY(-6%) rotate(var(--r)) scale(1.07); filter: drop-shadow(0 12px 10px rgba(40,30,20,.35)) }
+.syd-home { position: absolute; display: block; cursor: pointer; z-index: 2 }
+.syd-home:focus-visible { outline: 2px dashed var(--rim); outline-offset: 4px }
+.syd-home:hover .syd-btn, .syd-home:focus-visible .syd-btn, .syd-btn:hover, .syd-btn:active { transform: translateY(-6%) rotate(var(--r)) scale(1.07); filter: drop-shadow(0 12px 10px rgba(40,30,20,.35)) }
 @media (prefers-reduced-motion: reduce) { .syd-btn { transition: none } .syd-btn:hover, .syd-btn:active { transform: none } }
 /* ——— Related work on service pages ——— */
 .related { list-style: none; padding: 0 !important; margin: 0.75rem 0 0; display: grid !important; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: 1rem !important }
@@ -383,9 +385,9 @@ footer { text-align: center; margin-top: 4rem; font-size: 0.78rem; letter-spacin
         <div class="shots" style="--n: 1">
           <figure class="syd-fig">
             <div class="syd-stage" role="img" aria-label="Syd White's home page: hand-embossed metal name plates floating over a pale green sky ringed with pink clouds">
-              <img class="syd-bg" src="work/syd/home-bg.jpg" alt=""><img class="syd-btn" src="work/syd/btn-logo.png" alt="" style="left:1.91%;top:4.108%;width:14.931%;--r:-2deg"><img class="syd-btn" src="work/syd/btn-about.png" alt="" style="left:20.417%;top:21.317%;width:11.458%;--r:3deg"><img class="syd-btn" src="work/syd/btn-weddings.png" alt="" style="left:68.924%;top:21.955%;width:16.632%;--r:2.5deg"><img class="syd-btn" src="work/syd/btn-retail.png" alt="" style="left:40.417%;top:32.79%;width:21.007%;--r:-2.5deg"><img class="syd-btn" src="work/syd/btn-social.png" alt="" style="left:13.056%;top:45.113%;width:22.222%;--r:-3deg"><img class="syd-btn" src="work/syd/btn-renders.png" alt="" style="left:68.125%;top:50.708%;width:24.722%;--r:2.5deg"><img class="syd-btn" src="work/syd/btn-handmade.png" alt="" style="left:42.569%;top:55.737%;width:16.007%;--r:2deg"><img class="syd-btn" src="work/syd/btn-media.png" alt="" style="left:20.903%;top:68.768%;width:16.389%;--r:-2deg">
+              <img class="syd-bg" src="work/syd/home-bg.jpg" alt=""><a class="syd-home" href="https://sydw3941.ic.tc/" target="_blank" rel="noopener" aria-label="Visit Syd White’s website (opens in a new tab)" style="left:1.91%;top:4.108%;width:14.931%"><img class="syd-btn" src="work/syd/btn-logo.png" alt="" style="position:static;display:block;width:100%;--r:-2deg"></a><img class="syd-btn" src="work/syd/btn-about.png" alt="" style="left:20.417%;top:21.317%;width:11.458%;--r:3deg"><img class="syd-btn" src="work/syd/btn-weddings.png" alt="" style="left:68.924%;top:21.955%;width:16.632%;--r:2.5deg"><img class="syd-btn" src="work/syd/btn-retail.png" alt="" style="left:40.417%;top:32.79%;width:21.007%;--r:-2.5deg"><img class="syd-btn" src="work/syd/btn-social.png" alt="" style="left:13.056%;top:45.113%;width:22.222%;--r:-3deg"><img class="syd-btn" src="work/syd/btn-renders.png" alt="" style="left:68.125%;top:50.708%;width:24.722%;--r:2.5deg"><img class="syd-btn" src="work/syd/btn-handmade.png" alt="" style="left:42.569%;top:55.737%;width:16.007%;--r:2deg"><img class="syd-btn" src="work/syd/btn-media.png" alt="" style="left:20.903%;top:68.768%;width:16.389%;--r:-2deg">
             </div>
-            <figcaption>Home page. Hover over the plates to see them move.</figcaption>
+            <figcaption>Home page. Hover over the plates to see them move, and click the Syd White plate to explore her site.</figcaption>
           </figure>
           <figure class="syd-fig">
             <img src="work/syd/handmade-decor.jpg" alt="Syd White's Handmade decor page: a jute drum chandelier, a beaded pendant lamp, a stained glass nightlight and embossed metal tiles and frames, each cut out and floating on white" loading="lazy">
